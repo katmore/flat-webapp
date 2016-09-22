@@ -1,0 +1,7 @@
+dir for class definitions for API calls... such as
+<?php
+namespace AppRoute\Api\Resolve;
+
+class answer extends \SpyDash\AnswerApi {
+   
+}

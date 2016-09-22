@@ -1,0 +1,5 @@
+dir for class definitions in namespace AppRoute\Api\Dependency
+
+can write a class definition that will trigger a dependency that can enforce a 
+route resolution to fail if a dependent condition is not met 
+(missing input, unable to connect to a DB, missing configuration, etc)

@@ -1,0 +1,25 @@
+{
+  "directory": "web/components",
+  "name": "flat-appweb",
+  "homepage": "https://github.com/katmore/flat-webapp",
+  "description": "boilerplate flat web application",
+  "main": "",
+  "authors": [
+    "Doug Bird",
+    "Garrison Koch"
+  ],
+  "license": [
+       "MIT",
+       "GPL-3.0+"
+    ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

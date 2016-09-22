@@ -1,0 +1,19 @@
+body{
+	padding-top: 70px;
+}
+
+.croppie-container {
+    padding: 10px 10px 5px 10px;
+
+}
+.crop-photo-wrap{
+	height: 330px;
+    width: 335px;
+    margin-bottom: 30px;
+}
+.croppie-container .cr-slider-wrap{
+	margin-top: 20px;
+}
+.croppie-container .cr-viewport{
+	border: 0
+}

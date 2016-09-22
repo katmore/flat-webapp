@@ -1,0 +1,7 @@
+.*
+!/.gitignore
+!/.bowerrc
+**/vendor/*
+**/components/*
+composer.lock
+npm-debug.log
