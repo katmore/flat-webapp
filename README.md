@@ -16,9 +16,7 @@ https://github.com/katmore/flat-webapp
 
 ### Copyright Notice
 The flat framework. 
-
 Copyright (c) 2012-2015 Doug Bird. All Rights Reserved.
-
 https://github.com/katmore/flat
 
 The flat framework is copyrighted free software.
