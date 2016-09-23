@@ -14,11 +14,12 @@ https://github.com/katmore/flat-webapp
    * /webapp/app/Resources/design/tmpl/view/home.php maps to URI http://example.com/webapp/web/view.php/home
  * 
 
-### Copyright Notice
+### Copyright
 The flat framework. 
-Copyright (c) 2012-2015 Doug Bird. All Rights Reserved.
+Copyright (c) 2012-2016 Doug Bird. All Rights Reserved.
 https://github.com/katmore/flat
 
+### License
 The flat framework is copyrighted free software.
 You can redistribute it and/or modify it under either the terms and conditions of the
 "The MIT License (MIT)"; or the terms and conditions of the "GPL v3 License".
