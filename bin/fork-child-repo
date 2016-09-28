@@ -5,7 +5,7 @@
 ##       in essence, creates an "invisible fork" of the parent repo.
 ##       This facilitates a "private fork" of a "public repo".
 ##    Inspired by stackoverflow thread: 
-##       http://stackoverflow.com/questions/2129923/bash-run-command-before-a-script-exits
+##       http://stackoverflow.com/questions/10065526/github-how-to-make-a-fork-of-public-repository-private
 ################################################################################
 ## Copyright (c) 2012-2016 Doug Bird. All Rights Reserved.
 ##    This file part of the 'boilerplate flat web application'; see

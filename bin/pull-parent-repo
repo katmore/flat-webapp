@@ -4,7 +4,7 @@
 ##    git wrapper to pull/merge "parent" repo's updates to a "child" repo.
 ##       Performs a pull/merge from a remote repo to the local repo.
 ##    Inspired by stackoverflow thread: 
-##       http://stackoverflow.com/questions/2129923/bash-run-command-before-a-script-exits
+##       http://stackoverflow.com/questions/10065526/github-how-to-make-a-fork-of-public-repository-private
 ##    NOTE:
 ##       This script "doesn't work" if executed from within the parent repo. 
 ##       It should be executed within the "child" repo.
