@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 ################################################################################
-## pull-public-master
-##    git wrapper to pull/merge "parent" repo's updates to a "child" repo.
-##       Performs a pull/merge from a remote repo to the local repo.
+## fork-child-repo
+##    git wrapper to clone and mirror into a "child" repo
+##       in essence, creates an "invisible fork" of the parent repo.
+##       This facilitates a "private fork" of a "public repo".
 ##    Inspired by stackoverflow thread: 
 ##       http://stackoverflow.com/questions/2129923/bash-run-command-before-a-script-exits
-##    NOTE:
-##       This script "doesn't work" if executed from within the parent repo. 
-##       It should be executed within the "child" repo.
 ################################################################################
 ## Copyright (c) 2012-2016 Doug Bird. All Rights Reserved.
 ##    This file part of the 'boilerplate flat web application'; see
@@ -20,13 +18,17 @@
 ##    of the "GPL v3 License".
 ################################################################################
 ## Configuration varibles:
-##    CHILD_REPO_PATH:
-##       local system path of the "child" repo
-##     PARENT_REPO_URL:
+##    CHILD_REPO_URL:
+##       The remote URL of the "child" repo; the repo to become the 
+##       "private fork". Tis repo that will have the parent pushed/mirrored 
+##       into. 
+##       This script assumes the child repo already been created (ideally as
+##       an empty repo).
+##    PARENT_REPO_URL:
 ##       The remote URL of the "parent" repo; the repo that is 
 ##       "invisibly forked".
 ################################################################################
-CHILD_REPO_PATH=../
+CHILD_REPO_URL=$1
 PARENT_REPO_URL="https://github.com/katmore/flat-webapp.git"
 ################################################################################
 ## no configuration variables beyond this point
@@ -38,25 +40,39 @@ PARENT_REPO_URL="https://github.com/katmore/flat-webapp.git"
 ################################################################################
 ################################################################################
 ################################################################################
+set -e
 me=`basename "$0"`
 echo "$me"
 echo "(c) 2012-2016 Doug Bird. All Rights Reserved."
 echo "This script is part of the 'boilerplate flat web application'"
 echo "See: https://github.com/katmore/flat-webapp"
-cd $CHILD_REPO_ROOT
-cdres=$?
-if [ -d $cdres ]; then
-   echo "cannot continue; change dir failed '$CHILD_REPO_ROOT'" 1>&2
-   exit $cdres
+function usage {
+   echo "usage:"
+   echo "$me {CHILD_REPO_URL}"
+   echo "\tCHILD_REPO_URL: the git URL to create a mirror ("invisible fork") of"
+}
+if [ -z "$CHILD_REPO_URL" ]; then
+   echo "invalid (empty) value for CHILD_REPO_URL" 1>&2
+   usage
+   exit 1
 fi
-git remote add public $PARENT_REPO_URL
-git pull public master # Creates a merge commit
-pullres=$?
-if [ -d $pullres ]; then
-   echo "cannot continue; git pull failed '$CHILD_REPO_ROOT'" 1>&2
-   exit $pullres
-fi
-
+tmp_repo_dir=`mktemp -d`
+function cleanup {
+   if [ -d $tmp_repo_dir ];
+      echo "(notice) removing tmp dir '$tmp_repo_dir'"
+      rm -rf $tmp_repo_dir
+   fi
+}
+trap cleanup EXIT
+git clone --bare $PARENT_REPO_URL $tmp_repo_dir
+cd $tmp_repo_dir
+git push --mirror $CHILD_REPO_URL
+cd ..
+rm -rf $tmp_repo_dir
+echo "Success! The child repo is ready to be cloned and worked in; i.e.:"
+echo "\t # cd .. && git clone $CHILD_REPO_URL"
+echo "Hint: To get updates from the parent in your 'child', (from within the child repo copy), use the script 'bin/pull-parent-repo'."
+echo "\tIt will pull merge updates from the parent $PARENT_REPO_URL."
 
 
 
