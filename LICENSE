@@ -1,10 +1,10 @@
 THIS DOCUMENT APPLIES TO ALL SOURCE FILES IN THE PROJECT:
-"flat web application boilerplate" AS FOUND IN https://github.com/katmore/flat-webapp
+"boilerplate flat web application" AS FOUND IN https://github.com/katmore/flat-webapp
 UNLESS SOURCE FILE CONTAINS TEXT EXPLICITLY STATING OTHERWISE.
 
 The MIT License (MIT)
 
-The flat framework. Copyright (c) 2012-2015, Doug Bird.
+boilerplate flat web application. Copyright (c) 2012-2016, Doug Bird.
 All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
