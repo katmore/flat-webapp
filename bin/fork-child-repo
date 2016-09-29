@@ -48,9 +48,22 @@ echo "This script is part of the 'boilerplate flat web application'"
 echo "See: https://github.com/katmore/flat-webapp"
 function usage {
    echo "usage:"
-   echo "$me {CHILD_REPO_URL}"
+   echo "$me <CHILD_REPO_URL>"
    echo "\tCHILD_REPO_URL: the git URL to create a mirror ("invisible fork") of"
 }
+unknown_opt=
+while getopts ':hu:' o; do
+  case "${o}" in
+    u) PARENT_REPO_URL=${OPTARG} ;;
+    h) halp=1 ;;
+    *) unknown_opt=$unknown_opt"${o}" ;;
+  esac
+done
+shift $((OPTIND-1))
+if [ -n "$unknown_opt" ]; then 
+   echo "$me: failed. unknown option(s) $unknown_opt" 1>&2
+   echo $(usage) 1>&2
+fi
 if [ -z "$CHILD_REPO_URL" ]; then
    echo "invalid (empty) value for CHILD_REPO_URL" 1>&2
    usage

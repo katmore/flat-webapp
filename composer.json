@@ -1,5 +1,5 @@
 {
-    "name": "katmore/flat-dist-webapp",
+    "name": "katmore/flat-webapp",
     "description": "boilerplate flat web application",
     "homepage": "https://github.com/katmore/flat-webapp",
     "authors": [
@@ -14,20 +14,12 @@
     ],    
     "require": {
         "php" : ">=7.0.1",
-        "katmore/flat" : "dev-master",
-        "mongodb/mongodb": "^1.0.0",
-        "aws/aws-sdk-php": "^3.19",
-        "ext-simplexml" : "*",
-        "ext-curl" : "*",
-        "ext-imagick" : "*",
-        "ext-gmp" : "*",
-        "jenssegers/imagehash": "^0.4.0"        
+        "katmore/flat" : "dev-master" 
     },
     "autoload": {
         "psr-4": { 
-            "SpyDash\\": "src/SpyDash",
-            "SpyDashRoute\\": "app/SpyDashRoute",
-            "SpyDashWeb\\": "app/SpyDashWeb"
+            "AppRoute\\": "app/AppRoute",
+            "AppWeb\\": "app/AppWeb"
          }
     },
     "repositories": [

@@ -38,25 +38,72 @@ PARENT_REPO_URL="https://github.com/katmore/flat-webapp.git"
 ################################################################################
 ################################################################################
 ################################################################################
+quiet=0
+halp=0
 me=`basename "$0"`
-echo "$me"
-echo "(c) 2012-2016 Doug Bird. All Rights Reserved."
-echo "This script is part of the 'boilerplate flat web application'"
-echo "See: https://github.com/katmore/flat-webapp"
+function usage {
+   if [[ $halp == 1 ]]; then
+      quiet=0
+   fi
+   if [[ $quiet == 0 ]]; then
+      echo -e "usage: $me [ -qh[-u <PARENT_REPO_URL> ] ] [ <CHILD_REPO_PATH> ]"
+      echo -e "\t-q: quiet mode, no output except errors"
+      echo -e "\t-h: displays this usage message and exits"
+   fi
+}
+unknown_opt=
+while getopts ':qhu:' o; do
+  case "${o}" in
+    q) quiet=1 ;;
+    u) PARENT_REPO_URL=${OPTARG} ;;
+    h) halp=1 ;;
+    *) unknown_opt=$unknown_opt"${o}" ;;
+  esac
+done
+shift $((OPTIND-1))
+if [[ $help == 1 ]]; then
+   usage
+   exit
+fi
+if [ -z "$unknown_opt" ]; then 
+   echo "$me: notice. ignoring unknown option(s) $unknown_opt" 1>&2
+   if [[ $quiet == 0 ]]; then
+      echo $(usage) 1>&2
+   fi
+fi
+if [ -z "$1" ]; then
+   CHILD_REPO_PATH=$1
+fi
+if [[ $quiet == 0 ]]; then
+   echo -e "$me git wrapper to pull/merge "parent" repo's updates to a "child" repo.\n"
+   echo "(c) 2012-2016 Doug Bird. All Rights Reserved."
+   echo "This script is part of the 'boilerplate flat web application'"
+   echo "See: https://github.com/katmore/flat-webapp"
+fi
 cd $CHILD_REPO_ROOT
 cdres=$?
-if [ -d $cdres ]; then
-   echo "cannot continue; change dir failed '$CHILD_REPO_ROOT'" 1>&2
+if [[ $cdres != 0 ]]; then
+   echo "$me: failure. error on change dir '$CHILD_REPO_ROOT'" 1>&2
    exit $cdres
 fi
-git remote add public $PARENT_REPO_URL
-git pull public master # Creates a merge commit
-pullres=$?
-if [ -d $pullres ]; then
-   echo "cannot continue; git pull failed '$CHILD_REPO_ROOT'" 1>&2
-   exit $pullres
+remote_out=`git remote add public $PARENT_REPO_URL 2>&1`
+remote_res=$?
+if [[ $remote_res != 0 ]]; then
+   if [[ $remote_res != 128 ]]; then
+      echo $remote_out 1>&2
+      exit $remote_res
+   fi
 fi
-
+pull_out=`git pull public master 1>&2`
+pull_res=$?
+if [[ $pull_res != 0 ]]; then
+   echo -e "$me: git pull failed\ngit: $pull_out" 1>&2
+   exit $pull_res
+fi
+if [[ $quiet == 0 ]]; then
+   echo $pull_out
+   echo "Successful update from parent $PARENT_REPO_URL"
+fi
 
 
 
