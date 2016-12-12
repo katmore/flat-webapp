@@ -22,12 +22,6 @@
             "AppWeb\\": "app/AppWeb"
          }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/katmore/flat"
-        }
-    ],
     "license": [
        "MIT",
        "GPL-3.0+"
