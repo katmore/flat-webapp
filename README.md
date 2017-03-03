@@ -7,16 +7,35 @@ https://github.com/katmore/flat-webapp
  * Front-End Routing (for the HTML template) 
  * Back-End Routing (for the RESTful API webservice) 
  
-## directories
- * /webapp/app/AppRoute/Api routing definitions (class maps to URI http://example.com/webapp/web/api.php/)
-   * http://example.com/webapp/web/api.php/MyResource will instantiate class named \AppRoute\Api\Resolve\MyResource defined in /webapp/app/AppRoute/Api/MyResource.php
- * /webapp/app/Resources/design/tmpl/view/ page definitions
-   * /webapp/app/Resources/design/tmpl/view/home.php maps to URI http://example.com/webapp/web/view.php/home
- * 
+## directory map
+ * [/webapp/app/AppRoute/Api](https://github.com/katmore/flat-webapp/tree/master/app/AppRoute) "Webservice Routing": starting point of the **route map** used by the "API" *entry point controller*, i.e., from the URL http://example.com/webapp/web/api.php/*
+   * for example... 
+      define a class `MyResource` defined in /webapp/app/AppRoute/Api/MyResource.php (using namespace `\AppRoute\Api\Resolve` in class definition)
+   * then...
+    visit the URL `http://example.com/webapp/web/api.php/MyResource`, and the `api.php` *entry point controller* will instantiate the class named \AppRoute\Api\Resolve\MyResource (from above example)
+ * [/webapp/app/Resources/design/tmpl/view/](https://github.com/katmore/flat-webapp/tree/master/app/Resources/design/tmpl): "HTML View Routing": Starting point of the **route map** used by the "View" *entry-point controller*
+   * [/webapp/app/Resources/design/tmpl/view/home.php](https://github.com/katmore/flat-webapp/blob/master/app/Resources/design/tmpl/view/home.php) maps to URI http://example.com/webapp/web/view.php/home
+
+## Installation
+The easiest way to get going is with a two-step process using *Composer* and *Bower*
+
+ Step 1. Composer 'create-project'...
+
+```bash
+composer create-project katmore/flat-webapp my_project_dir
+```
+(copies this repo and configures php dependencies)
+
+ Step 2. Bower update...
+```bash
+cd my_project_dir
+bower update
+```
+(installs static dependencies)
 
 ### Copyright
 boilerplate flat web application. 
-Copyright (c) 2012-2016 Doug Bird. All Rights Reserved.
+Copyright (c) 2012-2017 Doug Bird. All Rights Reserved.
 https://github.com/katmore/flat-webapp
 
 ### License
