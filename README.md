@@ -1,4 +1,4 @@
-# flat boilerplate webapp
+# boilerplate flat webapp
 boilerplate flat web application
 https://github.com/katmore/flat-webapp
 
