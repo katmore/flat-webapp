@@ -13,8 +13,8 @@
         }
     ],    
     "require": {
-        "php" : ">=7.0.1",
-        "katmore/flat" : "dev-master" 
+        "php" : ">=7.1.1",
+        "katmore/flat": "^1.0"
     },
     "autoload": {
         "psr-4": { 
