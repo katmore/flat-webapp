@@ -1,6 +1,5 @@
-# boilerplate flat webapp
-boilerplate flat web application
-https://github.com/katmore/flat-webapp
+# flat webapp
+**boilerplate flat web application**
 
 ## features
  * HTML templating
@@ -34,11 +33,13 @@ bower update
 (installs static dependencies)
 
 ### Copyright
-boilerplate flat web application. 
+Flat webapp - https://github.com/katmore/flat-webapp
+
 Copyright (c) 2012-2017 Doug Bird. All Rights Reserved.
-https://github.com/katmore/flat-webapp
+
 
 ### License
-The flat framework is copyrighted free software.
+"Flat webapp" is copyrighted free software.
+
 You can redistribute it and/or modify it under either the terms and conditions of the
-"The MIT License (MIT)"; or the terms and conditions of the "GPL v3 License".
+"[The MIT License (MIT)](https://github.com/katmore/flat-webapp/blob/master/LICENSE)"; or the terms and conditions of the "[GPL v3 License](https://github.com/katmore/flat-webapp/blob/master/GPLv3)".
