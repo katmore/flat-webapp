@@ -1,5 +1,5 @@
 # flat webapp
-**boilerplate flat web application**
+**the boilerplate flat web package**
 
 ## features
  * HTML templating
