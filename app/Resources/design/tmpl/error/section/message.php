@@ -1,6 +1,6 @@
 <?php
 
-$event = '\flat\app\event\error';
+$event = '\AppWeb\ErrorEvent';
 $message=NULL;
 if (class_exists($event) && is_a($event, 'flat\event',true)) {
    $event::trigger(function($data=NULL) use( & $message) {

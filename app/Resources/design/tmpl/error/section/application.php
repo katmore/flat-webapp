@@ -1,5 +1,5 @@
 <?php
-$event = '\flat\app\event\meta\app';
+$event = '\AppWeb\ViewMetaEvent';
 $encoder = '\flat\core\html\encode';
 $app=NULL;
 $info="";

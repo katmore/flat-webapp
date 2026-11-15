@@ -17,8 +17,8 @@
  */
 namespace AppWeb;
 
-use \flat\app\event\error;
-use \flat\app\event\meta\app;
+use AppWeb\ErrorEvent as error;
+use AppWeb\ViewMetaEvent as app;
 /**
  * notfound
  * 

@@ -1,5 +1,5 @@
 <?php
-$event = '\flat\app\event\meta\app';
+$event = '\AppWeb\ViewMetaEvent';
 $app=NULL;
 if (class_exists($event) && is_a($event, 'flat\event',true)) {
    
