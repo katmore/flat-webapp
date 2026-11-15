@@ -1,0 +1,6 @@
+# Added by docker/bin/serve --flat DIR: serve flat from a local checkout instead
+# of the copy Composer installed.
+services:
+  web:
+    volumes:
+      - ${WEBAPP_FLAT_DIR:?}:/var/www/webapp/vendor/katmore/flat:ro

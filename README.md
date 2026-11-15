@@ -7,15 +7,35 @@
  * Back-End Routing (for the RESTful API webservice) 
  
 ## directory map
- * [/webapp/app/AppRoute/Api](https://github.com/katmore/flat-webapp/tree/master/app/AppRoute) "Webservice Routing": starting point of the **route map** used by the "API" *entry point controller*, i.e., from the URL http://example.com/webapp/web/api.php/*
-   * for example... 
-      define a class `MyResource` defined in /webapp/app/AppRoute/Api/MyResource.php (using namespace `\AppRoute\Api\Resolve` in class definition)
-   * then...
-    visit the URL `http://example.com/webapp/web/api.php/MyResource`, and the `api.php` *entry point controller* will instantiate the class named \AppRoute\Api\Resolve\MyResource (from above example)
- * [/webapp/app/Resources/design/tmpl/view/](https://github.com/katmore/flat-webapp/tree/master/app/Resources/design/tmpl): "HTML View Routing": Starting point of the **route map** used by the "View" *entry-point controller*
-   * [/webapp/app/Resources/design/tmpl/view/home.php](https://github.com/katmore/flat-webapp/blob/master/app/Resources/design/tmpl/view/home.php) maps to URI http://example.com/webapp/web/view.php/home
+ * `app/AppRoute/Api/Resolve/`: "Webservice Routing". Each class here is an API resource. For example `app/AppRoute/Api/Resolve/Hello.php` (namespace `AppRoute\Api\Resolve`, implements `\flat\core\routable`) answers `http://localhost:8080/api.php/Hello`. A resource that no class answers gets a 403 "forbidden resource".
+ * `app/Resources/design/tmpl/view/`: "HTML View Routing". `app/Resources/design/tmpl/view/home.php` answers `http://localhost:8080/view.php/home`; a view with no file answers 404.
+ * `app/config/routing/`: the namespaces (`AppRoute\Api\`, `AppRoute\View\`) the two entry points route into.
+ * `app/config/flat/`: configuration read through `\flat\core\config` (URL bases, design folder, page title).
+ * `web/`: the web root (`api.php` and `view.php` are the entry points; `asset/` holds the application's own CSS, JS and images; `components/` is created by Bower).
 
-## Installation
+## Run it with Docker
+Needs only Docker (with Compose). From the repository root:
+
+```bash
+docker/bin/serve
+```
+
+It installs the PHP dependencies with Composer (flat comes from the `php-7.2` branch of
+katmore/flat) and the front-end components with Bower, builds an Apache + PHP 7.2 image,
+and starts it. Then open:
+
+ * http://localhost:8080/view.php/home (HTML view)
+ * http://localhost:8080/api.php/Hello (JSON API example)
+
+Options (`docker/bin/serve --help`): `--port N` picks another port, `--flat ../flat` serves flat
+from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, and
+`--stop` stops the server. The Composer and Bower packages are installed into `vendor/` and
+`web/components/` in your working copy, as your own user.
+
+The `web/` folder is also served under `/webapp/`, because the generated asset URLs
+in `app/config/flat/App/` are written for an installation at `http://example.com/webapp/`.
+
+## Installation without Docker
 The easiest way to get going is with a two-step process using *Composer* and *Bower*
 
  Step 1. Composer 'create-project'...

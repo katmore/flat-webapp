@@ -1,0 +1,31 @@
+# Run through docker/bin/serve (see README.md); it sets the variables below.
+name: flat-webapp
+services:
+  web:
+    build:
+      context: .
+    image: flat-webapp-web
+    ports:
+      - "${WEBAPP_PORT:-8080}:80"
+    volumes:
+      - ..:/var/www/webapp
+  composer:
+    # PHP dependencies, including flat itself, into ./vendor
+    image: composer:2.2@sha256:4c156e03ca848b69528dde30996d8922b47a9946e76d5cc563cf7f0898e8aa86
+    profiles: ["tools"]
+    user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
+    working_dir: /app
+    environment:
+      COMPOSER_HOME: /tmp/composer
+    volumes:
+      - ..:/app
+  bower:
+    # front-end components (bootstrap, jquery) into ./web/components
+    image: node:10@sha256:59531d2835edd5161c8f9512f9e095b1836f7a1fcb0ab73e005ec46047384911
+    profiles: ["tools"]
+    user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
+    working_dir: /app
+    environment:
+      HOME: /tmp/home
+    volumes:
+      - ..:/app
