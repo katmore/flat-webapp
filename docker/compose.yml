@@ -9,6 +9,11 @@ services:
       - "${WEBAPP_PORT:-8080}:80"
     volumes:
       - ..:/var/www/webapp
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://localhost/view.php/home"]
+      interval: 2s
+      timeout: 5s
+      retries: 20
   composer:
     # PHP dependencies, including flat itself, into ./vendor
     image: composer:2.2@sha256:4c156e03ca848b69528dde30996d8922b47a9946e76d5cc563cf7f0898e8aa86

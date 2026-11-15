@@ -46,9 +46,10 @@ if [ "$install" = true ] || [ ! -f vendor/autoload.php ]; then
 fi
 if [ "$install" = true ] || [ ! -d web/components/bootstrap ]; then
     echo '== installing front-end components (Bower)'
-    compose --profile tools run --rm bower sh -c 'npm install --prefix /tmp/bower --no-audit --no-fund bower@1.8.14 >/dev/null && /tmp/bower/node_modules/.bin/bower install --config.interactive=false'
+    compose --profile tools run --rm bower sh -c 'mkdir -p /tmp/bower && cd /tmp/bower && npm init -y >/dev/null && npm install --no-audit --no-fund bower@1.8.14 >/dev/null && cd /app && /tmp/bower/node_modules/.bin/bower install --allow-root --config.interactive=false'
 fi
-compose up -d --build web
+# --wait returns once the health check (a request for the home view) succeeds
+compose up -d --build --wait web
 echo
 echo "flat-webapp is running:"
 echo "  http://localhost:$port/view.php/home"
