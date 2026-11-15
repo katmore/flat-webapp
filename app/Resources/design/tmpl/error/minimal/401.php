@@ -4,7 +4,7 @@ $error = (object) array(
    'title'=>'Unauthorized',
    'description'=>'unauthorized request for this resource'
 );
-$tmpl='\SpyDashWeb\NotFoundTmpl';
+$tmpl='\AppWeb\NotFoundTmpl';
 if (!class_exists($tmpl) || !is_a($tmpl,'flat\tmpl',true)) $tmpl=NULL;
 if ($tmpl && $tmpl::check_design('page')) {
    $tmpl::display('page',$error);

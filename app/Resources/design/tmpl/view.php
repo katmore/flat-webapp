@@ -1,10 +1,10 @@
 <?php
-use SpyDashWeb\WidgetTmpl;
-use SpyDashWeb\ViewMetaEvent as event;
-use SpyDashRoute\View\Meta;
-use SpyDashRoute\View\Tmpl;
-use SpyDashWeb\ComponentsUrl;
-use SpyDashWeb\AssetUrl;
+use AppWeb\WidgetTmpl;
+use AppWeb\ViewMetaEvent as event;
+use AppRoute\View\Meta;
+use AppRoute\View\Tmpl;
+use AppWeb\ComponentsUrl;
+use AppWeb\AssetUrl;
 
 $viewData = new Meta;
 event::trigger(function($data=null) use(&$viewData) {
@@ -28,8 +28,6 @@ event::trigger(function($data=null) use(&$viewData) {
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="<?=ComponentsUrl::asset('bootstrap/dist/css/bootstrap.min.css')?>">
    
-   <!-- croppie css -->
-   <link rel="stylesheet" href="<?=ComponentsUrl::asset('Croppie/croppie.css')?>" />
    
    <!-- custom css -->
    <link rel="stylesheet" href="<?=AssetUrl::asset('css/custom.css')?>" />
@@ -47,24 +45,11 @@ event::trigger(function($data=null) use(&$viewData) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">MiceSpy Dash</a>
+          <a class="navbar-brand" href="home">flat webapp</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
           <ul data-role="nav-items" class="nav navbar-nav">
-            <li><a href="batch-cropper">Batch Cropper</a></li>
-            <li><a href="photo-queue">Photo Queue</a></li>
-            <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Answer Data <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="attractions">Attractions</a></li>
-            <li><a href="parks">Parks</a></li>
-            <li><a href="areas">Areas</a></li>
-            <li><a href="types">Types</a></li>
-          </ul>
-        </li>
-        <li><a href="answers">Answers</a></li>
-             <li><a href="users">Users</a></li>
-             <li><a href="stats">stats</a></li>
+            <li><a href="home">Home</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

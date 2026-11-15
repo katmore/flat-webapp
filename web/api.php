@@ -25,7 +25,7 @@ return new class() {
    
    /**
     * string
-    *    change this to the path of the SpyDash 'app' directory
+    *    change this to the path of the webapp 'app' directory
     */
    const APP_DIR = __DIR__ . '/../app';
    

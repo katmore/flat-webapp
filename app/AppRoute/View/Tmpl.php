@@ -1,7 +1,7 @@
 <?php
-namespace SpyDashRoute\View;
+namespace AppRoute\View;
 
-class Tmpl extends \SpyDashWeb\ViewTmpl
+class Tmpl extends \AppWeb\ViewTmpl
 {
    
 

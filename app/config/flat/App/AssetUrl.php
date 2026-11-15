@@ -3,7 +3,7 @@
  * Configuration for web/view URLs 
  * 
  * config key prefix: 
- *    SpyDash/ComponentsUrl
+ *    App/AssetUrl
  * 
  */
 $config = [];
@@ -18,7 +18,7 @@ $config['url_base'] = "$addr_prefix/webapp/asset";
 
 /**
  * @var string home URL - empty string assets are mapped to this 'home' URL
- *    config key: SpyDash/ComponentsUrl/system_path
+ *    config key: App/AssetUrl/system_path
  */
 $config['system_path'] = __DIR__.'/../../../../web/asset';
 

@@ -1,7 +1,7 @@
 <?php
-namespace SpyDashRoute\View;
+namespace AppRoute\View;
 
-use SpyDashWeb\ViewMeta;
+use AppWeb\ViewMeta;
 
 
 class Meta extends ViewMeta {

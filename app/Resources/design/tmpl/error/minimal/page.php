@@ -8,7 +8,7 @@ $show['application'] = false;
 $show['description'] = true;
 $show['message'] = true;
 
-$tmpl='\SpyDashWeb\NotFoundTmpl';
+$tmpl='\AppWeb\NotFoundTmpl';
 if (!class_exists($tmpl) || !is_a($tmpl,'flat\tmpl',true)) $tmpl=NULL;
 if (is_object($data))
 foreach ($page as $prop=>&$val) if (isset($data->$prop)) $val=$data->$prop;

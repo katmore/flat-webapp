@@ -4,7 +4,7 @@ $error = (object) array(
    'title'=>'Not Found',
    'description'=>'no match found for request'
 );
-$tmpl='\SpyDashWeb\NotFoundTmpl';
+$tmpl='\AppWeb\NotFoundTmpl';
 if (!class_exists($tmpl) || !is_a($tmpl,'flat\tmpl',true)) $tmpl=NULL;
 
 

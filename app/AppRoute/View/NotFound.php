@@ -15,9 +15,9 @@
 /**
  * namespace
  */
-namespace SpyDashRoute\View;
+namespace AppRoute\View;
 
-class NotFound extends \SpyDashWeb\NotFoundTmpl
+class NotFound extends \AppWeb\NotFoundTmpl
 {}
 
 

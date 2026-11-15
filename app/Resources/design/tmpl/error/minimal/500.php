@@ -4,7 +4,7 @@ $error = (object) array(
    'title'=>'Internal Server Error',
    'description'=>'the server has experienced an error with this request'
 );
-$tmpl='\SpyDashWeb\NotFoundTmpl';
+$tmpl='\AppWeb\NotFoundTmpl';
 if (!class_exists($tmpl) || !is_a($tmpl,'flat\tmpl',true)) $tmpl=NULL;
 if ($tmpl && $tmpl::check_design('page')) {
    $tmpl::display('page',$error);
