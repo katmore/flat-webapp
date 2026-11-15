@@ -18,9 +18,9 @@ $config['url_base'] = "$addr_prefix/webapp/components";
 
 /**
  * @var string home URL - empty string assets are mapped to this 'home' URL
- *    config key: SpyDash/ComponentsUrl/system_path
+ *    config key: App/ComponentsUrl/system_path
  */
-$config['system_path'] = __DIR__.'/../../../web/components';
+$config['system_path'] = __DIR__.'/../../../../web/components';
 
 
 

@@ -1,5 +1,7 @@
 <?php
 namespace AppWeb;
+
+use \flat\core\config;
 abstract class Asset extends \flat\asset implements \flat\asset\base , \flat\asset\system_base {
    const FALLBACK_BASE = '/flat/asset';
    
@@ -16,7 +18,7 @@ abstract class Asset extends \flat\asset implements \flat\asset\base , \flat\ass
       
       $version = config::get("app/asset/version/active/version",['default'=>false]);
       if (!$version) {
-         return self::fallback_base.$this->_concat_base();
+         return self::FALLBACK_BASE.$this->_concat_base();
       }
       $url_base = config::get("app/asset/version/url_base");
       return "$url_base/$version".$this->_concat_base();
@@ -26,7 +28,7 @@ abstract class Asset extends \flat\asset implements \flat\asset\base , \flat\ass
       
 //       $version = config::get("app/asset/version/active/version",['default'=>false]);
 //       if (!$version) {
-//          return self::fallback_base.$this->_concat_base();
+//          return self::FALLBACK_BASE.$this->_concat_base();
 //       }      
 //       $base = config::get("app/asset/version/system_base");
 //       return "$base/$version".$this->_concat_base();
