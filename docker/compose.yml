@@ -24,13 +24,3 @@ services:
       COMPOSER_HOME: /tmp/composer
     volumes:
       - ..:/app
-  bower:
-    # front-end components (bootstrap, jquery) into ./web/components
-    image: node:10@sha256:59531d2835edd5161c8f9512f9e095b1836f7a1fcb0ab73e005ec46047384911
-    profiles: ["tools"]
-    user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
-    working_dir: /app
-    environment:
-      HOME: /tmp/home
-    volumes:
-      - ..:/app

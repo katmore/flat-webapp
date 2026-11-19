@@ -1,6 +1,5 @@
 .*
 !/.gitignore
-!/.bowerrc
 **/vendor/*
 **/components/*
 composer.lock

@@ -11,7 +11,7 @@ usage() {
     echo '  --port N     host port (default 8080, or WEBAPP_PORT)'
     echo '  --flat DIR   serve flat from a local checkout (for example ../flat)'
     echo '               instead of the copy Composer installed'
-    echo '  --install    run Composer and Bower again even if already installed'
+    echo '  --install    run Composer again even if already installed'
     echo '  --stop       stop and remove the web container'
     echo 'Set WEBAPP_CA_FILE to a CA bundle file if downloads need an extra CA.'
 }
@@ -43,10 +43,6 @@ if [ "$install" = true ] || [ ! -f vendor/autoload.php ]; then
     # ext-mongodb is only needed by flat's optional MongoDB code; the web image has none.
     compose --profile tools run --rm composer install --no-interaction --no-progress \
         --ignore-platform-req=ext-mongodb
-fi
-if [ "$install" = true ] || [ ! -d web/components/bootstrap ]; then
-    echo '== installing front-end components (Bower)'
-    compose --profile tools run --rm bower sh -c 'mkdir -p /tmp/bower-cli && cd /tmp/bower-cli && npm init -y >/dev/null && npm install --no-audit --no-fund bower@1.8.14 >/dev/null && cd /app && /tmp/bower-cli/node_modules/.bin/bower install --allow-root --config.interactive=false'
 fi
 # --wait returns once the health check (a request for the home view) succeeds
 compose up -d --build --wait web

@@ -11,7 +11,7 @@
  * `app/Resources/design/tmpl/view/`: "HTML View Routing". `app/Resources/design/tmpl/view/home.php` answers `http://localhost:8080/view.php/home`; a view with no file answers 404.
  * `app/config/routing/`: the namespaces (`AppRoute\Api\`, `AppRoute\View\`) the two entry points route into.
  * `app/config/flat/`: configuration read through `\flat\core\config` (URL bases, design folder, page title).
- * `web/`: the web root (`api.php` and `view.php` are the entry points; `asset/` holds the application's own CSS, JS and images; `components/` is created by Bower).
+ * `web/`: the web root (`api.php` and `view.php` are the entry points; `asset/` holds the application's own static files, currently one CSS file and some images; `components/` is where third-party static files would go, served through `AppWeb\ComponentsUrl`; it is empty and ignored by Git).
 
 ## Run it with Docker
 Needs only Docker (with Compose). From the repository root:
@@ -21,36 +21,28 @@ docker/bin/serve
 ```
 
 It installs the PHP dependencies with Composer (flat comes from the `php-7.2` branch of
-katmore/flat) and the front-end components with Bower, builds an Apache + PHP 7.2 image,
-and starts it. Then open:
+katmore/flat) builds an Apache + PHP 7.2 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
  * http://localhost:8080/api.php/Hello (JSON API example)
 
 Options (`docker/bin/serve --help`): `--port N` picks another port, `--flat ../flat` serves flat
 from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, and
-`--stop` stops the server. The Composer and Bower packages are installed into `vendor/` and
-`web/components/` in your working copy, as your own user.
+`--stop` stops the server. The Composer packages are installed into `vendor/` in your
+working copy, as your own user.
 
 The `web/` folder is also served under `/webapp/`, because the generated asset URLs
 in `app/config/flat/App/` are written for an installation at `http://example.com/webapp/`.
 
 ## Installation without Docker
-The easiest way to get going is with a two-step process using *Composer* and *Bower*
-
- Step 1. Composer 'create-project'...
+ Composer 'create-project'...
 
 ```bash
 composer create-project katmore/flat-webapp my_project_dir
 ```
 (copies this repo and configures php dependencies)
 
- Step 2. Bower update...
-```bash
-cd my_project_dir
-bower update
-```
-(installs static dependencies)
+The page is plain HTML and CSS with no JavaScript, so there is nothing else to install.
 
 ### Copyright
 Flat webapp - https://github.com/katmore/flat-webapp
