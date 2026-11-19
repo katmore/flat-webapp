@@ -21,21 +21,27 @@ Needs only Docker (with Compose). From the repository root:
 docker/bin/serve
 ```
 
+The script stays in the foreground and streams the server log live: every request and every PHP
+error (errors are never shown on the page, only here). **Press Ctrl-C to stop the server**; it
+shuts down and removes its container. Use `--detach` to run in the background instead.
+
 It installs the PHP dependencies with Composer (flat comes from the `php-7.2` branch of
-katmore/flat) builds an Apache + PHP 7.2 image, and starts it. Then open:
+katmore/flat), builds an Apache + PHP 7.2 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
  * http://localhost:8080/api.php/example (JSON API example)
 
 Options (`docker/bin/serve --help`): `--port N` picks another port, `--flat ../flat` serves flat
 from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, `--production` uses PHP's production
-settings (see below), and `--stop` stops the server. The Composer packages are installed into `vendor/` in your
+settings (see below), and `--detach` runs it in the background (stop it with `--stop`). The Composer packages are installed into `vendor/` in your
 working copy, as your own user.
 
 PHP settings: the entry points do not set `display_errors` or `error_reporting`; PHP's own
-configuration does. The image uses PHP's `php.ini-development` by default (errors are shown,
-with message, file paths and stack trace) or `php.ini-production` with `docker/bin/serve --production`
-(errors are hidden from visitors and only logged).
+configuration does. Errors are never shown on a page in either mode (`docker/zz-errors.ini` turns
+display off and logging on): visitors get a generic message, and the details (message, file, line,
+stack trace) go to the server log, which `docker/bin/serve` streams in your terminal. The image
+uses PHP's `php.ini-development` by default (`error_reporting` is `E_ALL`) or `php.ini-production`
+with `docker/bin/serve --production` (`E_ALL & ~E_DEPRECATED & ~E_STRICT`).
 
 The `web/` folder is also served under `/webapp/`, because the generated asset URLs
 in `app/config/flat/App/` are written for an installation at `http://example.com/webapp/`.

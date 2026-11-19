@@ -6,7 +6,7 @@ repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 cd "$repo_dir"
 
 usage() {
-    echo 'Usage: docker/bin/serve [--port N] [--flat DIR] [--install] [--production]'
+    echo 'Usage: docker/bin/serve [--port N] [--flat DIR] [--install] [--production] [--detach]'
     echo '       docker/bin/serve --stop'
     echo '  --port N     host port (default 8080, or WEBAPP_PORT)'
     echo '  --flat DIR   serve flat from a local checkout (for example ../flat)'
@@ -14,17 +14,20 @@ usage() {
     echo '  --install    run Composer again even if already installed'
     echo '  --production use the production PHP settings: errors are hidden from visitors'
     echo '               (default: development settings, errors are shown)'
+    echo '  --detach     start the server in the background and return (default: stay in'
+    echo '               the foreground, streaming the server log; Ctrl-C stops it)'
     echo '  --stop       stop and remove the web container'
     echo 'Set WEBAPP_CA_FILE to a CA bundle file if downloads need an extra CA.'
 }
 
-port=${WEBAPP_PORT:-8080}; flat_dir=; install=false; stop=false; php_ini=development
+port=${WEBAPP_PORT:-8080}; flat_dir=; install=false; stop=false; detach=false; php_ini=development
 while [ $# -gt 0 ]; do
     case $1 in
         --port) port=$2; shift 2 ;;
         --flat) flat_dir=$(CDPATH= cd -- "$2" && pwd); shift 2 ;;
         --install) install=true; shift ;;
         --production) php_ini=production; shift ;;
+        --detach) detach=true; shift ;;
         --stop) stop=true; shift ;;
         -h|--help) usage; exit 0 ;;
         *) usage >&2; exit 2 ;;
@@ -47,10 +50,25 @@ if [ "$install" = true ] || [ ! -f vendor/autoload.php ]; then
     compose --profile tools run --rm composer install --no-interaction --no-progress \
         --ignore-platform-req=ext-mongodb
 fi
-# --wait returns once the health check (a request for the home view) succeeds
-compose up -d --build --wait web
-echo
-echo "flat-webapp is running ($php_ini PHP settings):"
-echo "  http://localhost:$port/view.php/home"
-echo "  http://localhost:$port/api.php/example"
-echo "Stop it with: docker/bin/serve --stop"
+urls() {
+    echo "flat-webapp ($php_ini PHP settings):"
+    echo "  http://localhost:$port/view.php/home"
+    echo "  http://localhost:$port/api.php/example"
+}
+if [ "$detach" = true ]; then
+    # --wait returns once the health check (a request for the home view) succeeds
+    compose up -d --build --wait web
+    echo; urls
+    echo "Stop it with: docker/bin/serve --stop"
+else
+    echo; urls
+    echo "The server log streams below: every request and every PHP error, as it happens."
+    echo ">>> Press Ctrl-C to stop the server and remove its container. <<<"
+    echo
+    # Attached: Apache's access log and every PHP error appear here as they happen.
+    compose up --build web || true
+    echo
+    echo "Stopping flat-webapp..."
+    compose down >/dev/null 2>&1 || true
+    echo "Stopped."
+fi
