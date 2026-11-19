@@ -12,13 +12,9 @@ trait ErrorTrait {
          }
          if (!headers_sent()) http_response_code (500 );
          
-         if (ini_get('display_errors')) {
-            if (!headers_sent()) header('Content-Type: application/json',true);
-            echo nl2br(json_encode((object)['error_list'=>$errlist],\JSON_PRETTY_PRINT));
-         } else {
-            if (!headers_sent()) header('Content-Type: text/plain',true);
-            echo "Unable to process this request";            
-         }
+         error_log(json_encode($errlist['last_error'],\JSON_PARTIAL_OUTPUT_ON_ERROR|\JSON_UNESCAPED_SLASHES));
+         if (!headers_sent()) header('Content-Type: text/plain',true);
+         echo "Unable to process this request";
          exit(1);
       }
    }
@@ -38,7 +34,7 @@ trait ErrorTrait {
             } else {
                $func="";
             }
-            $trace[] = substr($value["file"]. '('.$value["line"].')'. $func,0,400);
+            $trace[] = substr((isset($value["file"]) ? $value["file"].'('.$value["line"].')' : '[internal]'). $func,0,400);
             if ($i>19) break 1;
             $i++;            
          }         

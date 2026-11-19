@@ -5,12 +5,8 @@ trait JsonErrorTrait {
    
    use ErrorTrait;
    protected static  $_checking = false;
-   protected static $_real_display_errors = null;
    public function _error_check(array $errdata=null) {
       
-      if (is_null(self::$_real_display_errors)) {
-         self::$_real_display_errors = ini_get('display_errors');
-      }
       if (self::$_checking) {
          return;
       } else {
@@ -36,19 +32,10 @@ trait JsonErrorTrait {
          
          if (!headers_sent()) http_response_code (500 );
          
-         if (self::$_real_display_errors) {
-            
-               if (!headers_sent()) {
-                  header('Content-Type: application/json',true);
-               }
-               //die(__FILE__);
-//                echo $errlist['last_error']['message'];
-//                die(__FILE__);
-               echo json_encode(['error_list'=>$errlist]);
-         } else {
-            if (!headers_sent()) header('Content-Type: text/plain',true);
-            echo "Unable to process this request";
-         }
+         // The details go to the log stream, never to the response.
+         error_log(json_encode($errlist['last_error'],\JSON_PARTIAL_OUTPUT_ON_ERROR|\JSON_UNESCAPED_SLASHES));
+         if (!headers_sent()) header('Content-Type: text/plain',true);
+         echo "Unable to process this request";
          exit(1);
       }
    }
