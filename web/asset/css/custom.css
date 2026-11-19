@@ -1,19 +1,11 @@
-body{
-	padding-top: 70px;
+body {
+	font-family: sans-serif;
+	max-width: 40em;
+	margin: 1em auto;
+	padding: 0 1em;
 }
 
-.croppie-container {
-    padding: 10px 10px 5px 10px;
-
-}
-.crop-photo-wrap{
-	height: 330px;
-    width: 335px;
-    margin-bottom: 30px;
-}
-.croppie-container .cr-slider-wrap{
-	margin-top: 20px;
-}
-.croppie-container .cr-viewport{
-	border: 0
+header {
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 1em;
 }
