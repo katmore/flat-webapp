@@ -7,7 +7,7 @@ etc.
 
 depending on the HTTP method, you must define the corresponding PHP method:
    public function GET_method(\flat\input $input) {
-      /*your stuff here*/
+      // your stuff here
    }
 */
 namespace AppRoute\Api\Resolve;
