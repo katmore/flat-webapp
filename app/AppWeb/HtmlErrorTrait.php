@@ -29,13 +29,15 @@ trait HtmlErrorTrait {
          $this->_display_error_prefix();
 
          if (!empty(ini_get('display_errors'))) {
-            echo "Please contact support or try again.";
-         } else {
+            // development: show the details
             if (class_exists('\flat\core\html\encode')) {
                echo \flat\core\html\encode::serialize((object)['Errors'=>$errlist]);
             } else {
                echo nl2br(json_encode((object)['Errors'=>$errlist],\JSON_PRETTY_PRINT));
             }
+         } else {
+            // production: say nothing about the cause
+            echo "Please contact support or try again.";
          }
          $this->_display_error_suffix();
          exit(1);
