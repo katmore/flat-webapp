@@ -25,6 +25,7 @@ event::trigger(function($data=null) use(&$viewData) {
   <body>
     <header><a href="home">flat webapp</a></header>
     <main data-viewBody="<?=$viewData->view?>">
+    
 <?php Tmpl::display($viewData->view) ?>
     </main>
   </body>

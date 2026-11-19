@@ -13,13 +13,13 @@ return new class() {
     *
     *    ignored unless value is 0 or 1
     */
-   const DISPLAY_ERRORS = 1;
+   //const DISPLAY_ERRORS = 1;
     
    /**
     * bool|int
     *    ignored unless value is integer
     */
-   const ERROR_REPORTING = E_ALL & ~E_DEPRECATED;   
+   //const ERROR_REPORTING = E_ALL & ~E_DEPRECATED;   
    
    /**
     * string
@@ -49,18 +49,18 @@ return new class() {
     */
    public function __construct() {
       
-      if (
-            (self::DISPLAY_ERRORS === 0) ||
-            (self::DISPLAY_ERRORS === 1)
-      ) {
-         ini_set('display_errors',self::DISPLAY_ERRORS);
-      }
+      // if (
+      //       (self::DISPLAY_ERRORS === 0) ||
+      //       (self::DISPLAY_ERRORS === 1)
+      // ) {
+      //    ini_set('display_errors',self::DISPLAY_ERRORS);
+      // }
       
-      if (
-         is_int(self::ERROR_REPORTING) 
-      ) {
-         error_reporting(self::ERROR_REPORTING);
-      }      
+      // if (
+      //    is_int(self::ERROR_REPORTING) 
+      // ) {
+      //    error_reporting(self::ERROR_REPORTING);
+      // }      
       
       require realpath(self::APP_DIR).'/autoload.php';
       
