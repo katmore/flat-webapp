@@ -1,32 +1,10 @@
 <?php
-/**
- * \flat\app\tmpl\ap\notfound class 
- *
- * PHP version >=5.6
- * 
- * Copyright (c) 2012-2014 Garrison Koch, Doug Bird, and Daniel Lepthien. 
- *    All Rights Reserved. 
- * 
- * LICENSE: NO LICENSE, EXPRESS OR IMPLIED, BY THE COPYRIGHT OWNERS
- * OR OTHERWISE, IS GRANTED TO ANY INTELLECTUAL PROPERTY IN THIS SOURCE FILE.
- * 
- * @license NO LICENSE GRANTED
- */
-/**
- * namespace
- */
 namespace AppWeb;
 
 use AppWeb\ErrorEvent as error;
 use AppWeb\ViewMetaEvent as app;
 /**
- * notfound
- * 
- * @package    flat\app\ap\reeltrend
- * @author     D. Bird <retran@gmail.com>
- * @copyright  Copyright (c) 2012-2014 Garrison Koch, Doug Bird, and Daniel Lepthien. All Rights Reserved.
- * @version    0.1.0-alpha
- * 
+ * Template for the not-found (404) page.
  */
 class NotFoundTmpl extends \flat\tmpl 
    implements \flat\tmpl\design, 
@@ -73,19 +51,3 @@ class NotFoundTmpl extends \flat\tmpl
       return self::error_404_design;
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
