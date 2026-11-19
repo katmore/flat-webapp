@@ -21,6 +21,15 @@ class ViewController {
       
       if (!$input) $input = $this->_get_input($requestMethod, $contentType);
 
+      /*
+       * honor error_reporting(): errors outside the level, and ones silenced with @,
+       * are ignored (returning true marks them handled, so error_get_last() stays clean)
+       */
+      set_error_handler(function($errno) {
+         return !(error_reporting() & $errno);
+      });
+      error_clear_last(); // an error from before this point is not this request's failure
+
       register_shutdown_function(function() {
          $error = error_get_last();
          if (($error['type'] === E_ERROR) || ($error['type'] === E_USER_ERROR)) {

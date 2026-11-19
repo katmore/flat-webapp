@@ -39,6 +39,7 @@ class ApiController
       \flat\core\controller\api::set_method ( $requestMethod );
       
       $this->_enable_custom_errors();
+      error_clear_last(); // an error from before this point is not this request's failure
       
       ob_start();
       /*

@@ -25,6 +25,9 @@ trait ErrorTrait {
    public function _enable_custom_errors() {
       
       set_error_handler(function($errno , $errstr , $errfile =null, $errline =null, $errcontext =null) {
+         // honor error_reporting(): errors outside the level, and ones silenced with @,
+         // are ignored (returning true marks them handled, so error_get_last() stays clean)
+         if (!(error_reporting() & $errno)) return true;
          //debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
          $trace=[];
          $i=0;
