@@ -24,13 +24,18 @@ trait HtmlErrorTrait {
          
          $errlist['backtrace'] = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
          
-         if (!headers_sent()) http_response_code (500 );
+         if (!headers_sent()) http_response_code (500);
          
          $this->_display_error_prefix();
-         if (class_exists('\flat\core\html\encode')) {
-            echo \flat\core\html\encode::serialize((object)['Errors'=>$errlist]);
+
+         if (!empty(ini_get('display_errors'))) {
+            echo "Please contact support or try again."
          } else {
-            echo nl2br(json_encode((object)['Errors'=>$errlist],\JSON_PRETTY_PRINT));
+            if (class_exists('\flat\core\html\encode')) {
+               echo \flat\core\html\encode::serialize((object)['Errors'=>$errlist]);
+            } else {
+               echo nl2br(json_encode((object)['Errors'=>$errlist],\JSON_PRETTY_PRINT));
+            }
          }
          $this->_display_error_suffix();
          exit(1);
