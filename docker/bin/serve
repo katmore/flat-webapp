@@ -49,5 +49,5 @@ compose up -d --build --wait web
 echo
 echo "flat-webapp is running:"
 echo "  http://localhost:$port/view.php/home"
-echo "  http://localhost:$port/api.php"
+echo "  http://localhost:$port/api.php/Hello"
 echo "Stop it with: docker/bin/serve --stop"
