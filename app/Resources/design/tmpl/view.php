@@ -12,6 +12,7 @@ event::trigger(function($data=null) use(&$viewData) {
    }
 
 });
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

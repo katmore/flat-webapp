@@ -29,7 +29,7 @@ trait HtmlErrorTrait {
          $this->_display_error_prefix();
 
          if (!empty(ini_get('display_errors'))) {
-            echo "Please contact support or try again."
+            echo "Please contact support or try again.";
          } else {
             if (class_exists('\flat\core\html\encode')) {
                echo \flat\core\html\encode::serialize((object)['Errors'=>$errlist]);
