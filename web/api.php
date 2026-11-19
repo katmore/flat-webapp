@@ -7,22 +7,11 @@ use AppWeb\ApiController;
 return new class() {
    
 
-   /**
-    * int 
-    *    override display_errors setting
-    *    for example: (int) 0 will WSOD, (int) 1 will display php errors
-    *
-    *    ignored unless value is 0 or 1
+   /*
+    * display_errors and error_reporting are not set here: they come from PHP's
+    * configuration (php.ini; the Docker image selects it with docker/bin/serve --production).
     */
-   const DISPLAY_ERRORS = 1;
-   
-   /**
-    * int
-    *    override error_reprting level 
-    *    ignored unless value is integer
-    */
-   const ERROR_REPORTING = E_ALL & ~E_DEPRECATED;   
-   
+
    /**
     * string
     *    change this to the path of the webapp 'app' directory
@@ -44,25 +33,10 @@ return new class() {
    const FALLBACK_REQUEST_METHOD = 'GET';
    
    /**
-    * @uses self::DISPLAY_ERRORS
-    * @uses self::ERROR_REPORTING
     * @uses self::APP_DIR
     * @uses self::ROUTE_NAME
     */
    public function __construct() {
-      
-      if (
-            (self::DISPLAY_ERRORS === 0) ||
-            (self::DISPLAY_ERRORS === 1)
-      ) {
-         ini_set('display_errors',self::DISPLAY_ERRORS);
-      }
-      
-      if (
-         is_int(self::ERROR_REPORTING) 
-      ) {
-         error_reporting(self::ERROR_REPORTING);
-      }      
       
       require realpath(self::APP_DIR).'/autoload.php';
       
