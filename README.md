@@ -7,7 +7,8 @@
  * Back-End Routing (for the RESTful API webservice) 
  
 ## directory map
- * `app/AppRoute/Api/Resolve/`: "Webservice Routing". Each class here is an API resource. For example `app/AppRoute/Api/Resolve/Hello.php` (namespace `AppRoute\Api\Resolve`, implements `\flat\core\routable`) answers `http://localhost:8080/api.php/Hello`. A resource that no class answers gets a 403 "forbidden resource".
+ * `app/AppRoute/Api/Resolve/`: "Webservice Routing". Each class here is an API resource. For example `app/AppRoute/Api/Resolve/example.php` (namespace `AppRoute\Api\Resolve`, implements `\flat\core\routable`) answers `http://localhost:8080/api.php/example`. A resource that no class answers gets a 403 "forbidden resource".
+ * `app/AppRoute/Api/Dependency/` (create it when needed): classes in namespace `AppRoute\Api\Dependency` run before the resource and can make a route resolution fail when a condition is not met (missing input, no database connection, missing configuration, and so on).
  * `app/Resources/design/tmpl/view/`: "HTML View Routing". `app/Resources/design/tmpl/view/home.php` answers `http://localhost:8080/view.php/home`; a view with no file answers 404.
  * `app/config/routing/`: the namespaces (`AppRoute\Api\`, `AppRoute\View\`) the two entry points route into.
  * `app/config/flat/`: configuration read through `\flat\core\config` (URL bases, design folder, page title).
@@ -24,7 +25,7 @@ It installs the PHP dependencies with Composer (flat comes from the `php-7.2` br
 katmore/flat) builds an Apache + PHP 7.2 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
- * http://localhost:8080/api.php/Hello (JSON API example)
+ * http://localhost:8080/api.php/example (JSON API example)
 
 Options (`docker/bin/serve --help`): `--port N` picks another port, `--flat ../flat` serves flat
 from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, and
