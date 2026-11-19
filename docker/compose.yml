@@ -4,6 +4,8 @@ services:
   web:
     build:
       context: .
+      args:
+        PHP_INI: ${WEBAPP_PHP_INI:-development}
     image: flat-webapp-web
     ports:
       - "${WEBAPP_PORT:-8080}:80"
