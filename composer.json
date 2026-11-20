@@ -14,11 +14,17 @@
     ],    
     "require": {
         "php" : ">=7.1.1",
-        "katmore/flat": "1.72.*"
+        "katmore/flat": "dev-php-7.3"
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/katmore/flat"
+        }
+    ],
     "config": {
         "platform": {
-            "php": "7.2.34"
+            "php": "7.3.33"
         }
     },
     "autoload": {
