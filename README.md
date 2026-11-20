@@ -26,7 +26,7 @@ error (errors are never shown on the page, only here). **Press Ctrl-C to stop th
 shuts down and removes its container. Use `--detach` to run in the background instead.
 
 It installs the PHP dependencies with Composer (flat `1.72.*`, the PHP 7.2 release of
-katmore/flat), builds an Apache + PHP 7.2 image, and starts it. Then open:
+katmore/flat), builds an Apache + PHP 7.3 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
  * http://localhost:8080/api.php/example (JSON API example)
