@@ -11,10 +11,9 @@ trait HtmlErrorTrait {
    public function _error_check() {
       if ($errlist['Last Error'] = error_get_last() ) {
          
-         if (!empty($errlist['Last Error']['type'])) {
-            if (! ( $errlist['Last Error']['type'] & error_reporting())) {
-               return;
-            }
+         // warnings, notices and deprecations are logged by PHP and do not end the request
+         if (!ErrorType::is_fatal($errlist['Last Error']['type'])) {
+            return;
          }
          
          if ($level = ob_get_level()) for($i=0;$i<$level;$i++) {

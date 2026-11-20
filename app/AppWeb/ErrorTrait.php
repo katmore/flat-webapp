@@ -6,6 +6,8 @@ trait ErrorTrait {
       if (empty($errdata)) {
          $errdata = error_get_last();
       }
+      // warnings, notices and deprecations are logged by PHP and do not end the request
+      if (isset($errdata['type']) && is_int($errdata['type']) && !ErrorType::is_fatal($errdata['type'])) return;
       if ($errlist['last_error'] = $errdata ) {
          if ($level = ob_get_level()) for($i=0;$i<$level;$i++) {
             ob_get_clean();
@@ -24,6 +26,8 @@ trait ErrorTrait {
          // honor error_reporting(): errors outside the level, and ones silenced with @,
          // are ignored (returning true marks them handled, so error_get_last() stays clean)
          if (!(error_reporting() & $errno)) return true;
+         // Warnings, notices and deprecations: let PHP log them and carry on.
+         if (!ErrorType::is_fatal($errno)) return false;
          //debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
          $trace=[];
          $i=0;
@@ -83,7 +87,7 @@ trait ErrorTrait {
       
          register_shutdown_function(function() {
             $error = error_get_last();
-            if (($error['type'] === E_ERROR) || ($error['type'] === E_USER_ERROR)) {
+            if ($error && ErrorType::is_fatal($error['type'])) {
                if ($level = ob_get_level()) for($i=0;$i<$level;$i++) {
                   ob_get_clean();
                }

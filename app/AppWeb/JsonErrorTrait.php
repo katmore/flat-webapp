@@ -7,22 +7,17 @@ trait JsonErrorTrait {
    protected static  $_checking = false;
    public function _error_check(array $errdata=null) {
       
-      if (self::$_checking) {
-         return;
-      } else {
-         //ini_set('display_errors','0');
-         self::$_checking=true;
-      }
-      
-      
-      
       if (empty($errdata)) {
          $errdata = error_get_last();
       }
-//       $traceSize = count($errdata['trace']);
-//       var_dump( $traceSize );
-//       die(__FILE__);
-      //if (isset($errdata['trace'])) unset($errdata['trace']);
+      // warnings, notices and deprecations are logged by PHP and do not end the request
+      if (isset($errdata['type']) && is_int($errdata['type']) && !ErrorType::is_fatal($errdata['type'])) return;
+      
+      if (self::$_checking) {
+         return;
+      } else {
+         self::$_checking=true;
+      }
       
       if ($errlist['last_error'] = $errdata ) {
          

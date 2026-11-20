@@ -32,7 +32,7 @@ class ViewController {
 
       register_shutdown_function(function() {
          $error = error_get_last();
-         if (($error['type'] === E_ERROR) || ($error['type'] === E_USER_ERROR)) {
+         if ($error && ErrorType::is_fatal($error['type'])) {
             if ($level = ob_get_level()) for($i=0;$i<$level;$i++) {
                ob_get_clean();
             }
