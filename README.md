@@ -32,16 +32,18 @@ katmore/flat), builds an Apache + PHP 7.2 image, and starts it. Then open:
  * http://localhost:8080/api.php/example (JSON API example)
 
 Options (`docker/bin/serve --help`): `--port N` picks another port, `--flat ../flat` serves flat
-from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, `--production` uses PHP's production
-settings (see below), and `--detach` runs it in the background (stop it with `--stop`). The Composer packages are installed into `vendor/` in your
+from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, and `--detach` runs it in the background (stop it with `--stop`). The Composer packages are installed into `vendor/` in your
 working copy, as your own user.
 
 PHP settings: the entry points do not set `display_errors` or `error_reporting`; PHP's own
-configuration does. Errors are never shown on a page in either mode (`docker/zz-errors.ini` turns
-display off and logging on): visitors get a generic message, and the details (message, file, line,
-stack trace) go to the server log, which `docker/bin/serve` streams in your terminal. The image
-uses PHP's `php.ini-development` by default (`error_reporting` is `E_ALL`) or `php.ini-production`
-with `docker/bin/serve --production` (`E_ALL & ~E_DEPRECATED & ~E_STRICT`).
+configuration does. The image uses PHP's `php.ini-development` (`error_reporting` is `E_ALL`), and
+`docker/zz-errors.ini` turns display off and logging on. Errors are never shown on a page:
+visitors get a generic message, and the details (message, file, line, stack trace) go to the
+server log, which `docker/bin/serve` streams in your terminal.
+
+**The Docker setup is for local development only. It is not production-ready and makes no attempt
+to be**: it runs Apache with PHP's development settings and mounts your working copy into the
+container. Deploying flat-webapp is a separate job that this repository does not do for you.
 
 The `web/` folder is also served under `/webapp/`, because the generated asset URLs
 in `app/config/flat/App/` are written for an installation at `http://example.com/webapp/`.
