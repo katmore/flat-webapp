@@ -57,7 +57,16 @@ urls() {
 }
 if [ "$detach" = true ]; then
     # --wait returns once the health check (a request for the home view) succeeds
-    compose up -d --build --wait web
+    if ! compose up -d --build --wait web; then
+        echo >&2
+        echo "The server started but /view.php/home is not answering with a success status." >&2
+        echo "Most likely PHP is failing on that page. The last server log lines:" >&2
+        echo >&2
+        compose logs --no-log-prefix --tail 30 web >&2 || true
+        echo >&2
+        echo "Run again without --detach to watch the log live, or fix the page and retry." >&2
+        exit 1
+    fi
     echo; urls
     echo "Stop it with: docker/bin/serve --stop"
 else
