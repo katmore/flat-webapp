@@ -54,6 +54,6 @@ repository, and only the maintainer can add one.)
 ## Branches
 
 - Commit and push to the current phase branch (`php-7.3`; `php-7.2` is closed and kept as the
-  record of its phase). Leave `modernize-26` to the maintainer, and never touch `master`
-  (prime directive 1). Follow the maintainer's explicit branch and push instructions.
+  record of its phase). Never touch `master` (prime directive 1). There is no `modernize-26`
+  branch any more (retired 2026-11-20). Follow the maintainer's explicit branch and push instructions.
 - Commit often, in coherent groups, each with its documentation.
