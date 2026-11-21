@@ -58,8 +58,10 @@ docker/bin/test --filter ApiTest     # arguments go to PHPUnit
 
 The tests in `tests/` send real HTTP requests to the application running behind Apache in Docker
 (`docker/compose.test.yml`) and check the status, headers and body. The run also fails if the
-server log shows any PHP warning, notice, deprecation or fatal error. Docker is the only thing
-needed on the host. Like the server, it is for local development only.
+server log shows any PHP warning, notice, deprecation, fatal error or application JSON error
+record. Isolated PHP tests assert native fatal paths and the error handlers' generic response,
+HTTP status and logged diagnostics. Docker is the only host requirement; this is development
+tooling.
 
 ## Installation without Docker
  Composer 'create-project'...

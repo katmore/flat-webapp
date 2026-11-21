@@ -52,8 +52,8 @@ set -e
 
 # Every PHP message in the server log is a failure, even when all tests passed.
 compose logs --no-color web > "$log" 2>&1
-if grep -E 'PHP (Warning|Notice|Deprecated|Strict Standards|Parse error|Fatal error)' "$log" >&2; then
-    echo 'The server log contains the PHP messages above: fix their cause.' >&2
+if ! compose run --rm -T --no-deps -v "$log:/server.log:ro" --entrypoint php tests tests/tools/check-server-log.php /server.log; then
+    echo 'The server log check failed: fix the reported errors.' >&2
     status=1
 fi
 exit "$status"
