@@ -11,6 +11,7 @@ services:
       APACHE_RUN_GROUP: "#${WEBAPP_GID:-1000}"
     volumes:
       - ..:/var/www/webapp
+      - ./apache.test.conf:/etc/apache2/conf-enabled/flat-tests.conf:ro
     healthcheck:
       test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://localhost/view.php/home"]
       interval: 2s

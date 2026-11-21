@@ -87,17 +87,14 @@ class ApiTest extends TestCase
 
     public function unsupportedMethods()
     {
-        // PATCH is left out on purpose: flat does not know it and the application dies with a PHP
-        // fatal error (Q43 in flat's docs/modernization/php-7.3/active/KNOWN-DEFECTS.md).
+        // PATCH's native fatal path is checked separately in Unit/ErrorPathsTest.
         return [['POST'], ['PUT'], ['DELETE'], ['OPTIONS']];
     }
 
     /**
      * No resource here implements POST, so the answer is the same whatever the body is.
-     * Malformed JSON is not in this list on purpose: InputTrait raises a PHP fatal error for it
-     * (a deliberate trigger_error, before the controller's error handlers exist), and the server-log
-     * check of docker/bin/test rejects any PHP fatal error (Q44 in flat's
-     * docs/modernization/php-7.3/active/KNOWN-DEFECTS.md).
+     * InputTest observes parsed bodies through the test-only endpoint. ErrorPathsTest checks
+     * malformed JSON's native fatal separately, including its log record.
      *
      * @dataProvider requestBodies
      */

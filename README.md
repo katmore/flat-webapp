@@ -59,8 +59,13 @@ docker/bin/test --filter ApiTest     # arguments go to PHPUnit
 The tests in `tests/` send real HTTP requests to the application running behind Apache in Docker
 (`docker/compose.test.yml`) and check the status, headers and body. The run also fails if the
 server log shows any PHP warning, notice, deprecation, fatal error or application JSON error
-record. Isolated PHP tests assert native fatal paths and the error handlers' generic response,
-HTTP status and logged diagnostics. Docker is the only host requirement; this is development
+record. A test-only HTTP endpoint exposes parsed request bodies. Isolated PHP tests assert native
+fatal paths and the error handlers' generic response, HTTP status and logged diagnostics.
+The endpoint is enabled only by the test Compose stack, which publishes no host port.
+
+The runner reconciles dependencies with the tracked application lock on every run and checks that
+the installed flat release matches it. Set `COMPOSER_PREFER_INSTALL=source` to use Git downloads
+when archive downloads are unavailable. Docker is the only host requirement; this is development
 tooling.
 
 ## Installation without Docker

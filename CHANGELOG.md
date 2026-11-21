@@ -12,3 +12,12 @@ unavailable; test images omit downloaded Git histories. PHP remains 7.3.33.
 Reject PHP warnings, notices, deprecations, catchable/recoverable fatals and application JSON
 error records, including truncated records. Tests verify the log command's exit status and run
 real error handlers in isolated PHP processes, asserting their response body, status and logs.
+
+## Observe parsed HTTP input (finding 6)
+
+Add a test-only HTTP endpoint using the real InputTrait and php://input. Nine cases check JSON,
+forms and GET input directly. The endpoint is enabled only in the test stack, with no host port.
+A scratch parser returning empty input makes six new checks fail while the five existing
+unsupported-method body checks still pass. No application or web entry-point code changed.
+
+Validation: 66 tests and 196 assertions pass with PHP 7.3.33 and the strict server-log gate.
