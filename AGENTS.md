@@ -47,6 +47,8 @@ repository, and only the maintainer can add one.)
 - The `composer.json` constraint on `katmore/flat` follows the flat release that matches the PHP
   version of the current phase branch (now `php-7.3`). Use a published release, not a flat
   branch, once one exists.
+- A README says what is true now; history (what changed, why, who decided) belongs in a
+  changelog. Keep documents short and link instead of repeating.
 - Markdown must read well rendered and as plain text: headings, short paragraphs, lists; tables
   only for short regular data.
 - Keep chat replies to summaries; ask before guessing.
