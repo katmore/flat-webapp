@@ -34,7 +34,8 @@ trait InputTrait {
          if (!empty($rawinput)) {
             if (false !== (strpos($contentType,"application/json"))) {
    
-               if (false !== ($json = json_decode($rawinput))) {
+               $json = json_decode($rawinput);
+               if (JSON_ERROR_NONE === json_last_error()) {
                   $input = new \flat\input\map($json);
                } else {
                   trigger_error(

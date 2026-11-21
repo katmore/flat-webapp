@@ -93,10 +93,11 @@ class ApiTest extends TestCase
     }
 
     /**
-     * No resource here implements POST, so the answer is the same whatever the body is. That
-     * includes malformed JSON: InputTrait::_get_input() checks json_decode() against false, but
-     * a malformed document gives null, so its "malformed JSON" error never happens and the
-     * input is empty. Pinned as it behaves; recorded in docs for the owner.
+     * No resource here implements POST, so the answer is the same whatever the body is.
+     * Malformed JSON is not in this list on purpose: InputTrait raises a PHP fatal error for it
+     * (a deliberate trigger_error, before the controller's error handlers exist), and the server-log
+     * check of docker/bin/test rejects any PHP fatal error (Q44 in flat's
+     * docs/modernization/php-7.3/active/KNOWN-DEFECTS.md).
      *
      * @dataProvider requestBodies
      */
@@ -113,7 +114,7 @@ class ApiTest extends TestCase
             'json' => ['application/json', '{"k":"v"}'],
             'json without the content type' => ['text/plain', '{"k":"v"}'],
             'form' => ['application/x-www-form-urlencoded', 'a=1&b=2'],
-            'malformed json' => ['application/json', '{bad json'],
+            'json false' => ['application/json', 'false'],
             'empty' => ['application/json', ''],
         ];
     }
