@@ -3,5 +3,7 @@
 **/vendor/*
 **/components/*
 composer.lock
+# the functional tests' own lock is a reproducibility input
+!/tests/docker/composer.lock
 npm-debug.log
 !/.gitattributes

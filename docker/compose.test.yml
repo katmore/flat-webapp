@@ -1,0 +1,28 @@
+# Functional tests: the application behind Apache, and PHPUnit sending it real HTTP requests.
+# Run through docker/bin/test (see README.md). Development only.
+name: flat-webapp-test
+services:
+  web:
+    build:
+      context: .
+    image: flat-webapp-web
+    volumes:
+      - ..:/var/www/webapp
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://localhost/view.php/home"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  tests:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.test
+    image: flat-webapp-tests
+    working_dir: /app
+    environment:
+      FLAT_WEBAPP_URL: http://web
+    volumes:
+      - ..:/app:ro
+    depends_on:
+      web:
+        condition: service_healthy

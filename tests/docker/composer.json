@@ -1,0 +1,15 @@
+{
+  "require": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "config": {
+    "platform": {
+      "php": "7.3.33"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Tests\\": "/app/tests/"
+    }
+  }
+}

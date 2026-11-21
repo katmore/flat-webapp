@@ -48,6 +48,18 @@ container. Deploying flat-webapp is a separate job that this repository does not
 The `web/` folder is also served under `/webapp/`, because the generated asset URLs
 in `app/config/flat/App/` are written for an installation at `http://example.com/webapp/`.
 
+## Functional tests
+
+```bash
+docker/bin/test                      # all tests
+docker/bin/test --filter ApiTest     # arguments go to PHPUnit
+```
+
+The tests in `tests/` send real HTTP requests to the application running behind Apache in Docker
+(`docker/compose.test.yml`) and check the status, headers and body. The run also fails if the
+server log shows any PHP warning, notice, deprecation or fatal error. Docker is the only thing
+needed on the host. Like the server, it is for local development only.
+
 ## Installation without Docker
  Composer 'create-project'...
 

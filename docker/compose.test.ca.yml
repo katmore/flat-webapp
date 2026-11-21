@@ -1,0 +1,10 @@
+# Added when WEBAPP_CA_FILE is set: trust an extra CA bundle (for example behind a
+# corporate proxy) when the test image downloads PHPUnit.
+services:
+  tests:
+    build:
+      secrets:
+        - proxy_ca
+secrets:
+  proxy_ca:
+    file: ${WEBAPP_CA_FILE:?}
