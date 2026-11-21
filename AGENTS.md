@@ -32,9 +32,10 @@ repository, and only the maintainer can add one.)
 
 ## Working rules
 
-- The application code (`app/`, `web/`) models what the one known consumer of flat does. Never
-  change it, bug fixes included: record what you find (in flat's phase notes) and leave it as it
-  is. The tests, Docker setup and docs around it are fair game.
+- The application code (`app/`, `web/`) models what the one known consumer of flat does. Change it
+  only for a literal bug, and keep the fix small; never add behavior (a new status code, say) and
+  do not "improve" it. Record what you find in flat's phase notes. The tests, Docker setup and
+  docs around it are fair game.
 - The Docker setup under `docker/` is for local development only. It is not production-ready
   and must not pretend to be. Run it with `docker/bin/serve`; Ctrl-C stops it and removes its
   container. Docker is the only thing needed on the host: do not depend on host PHP or Composer.
