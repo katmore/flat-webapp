@@ -27,7 +27,7 @@ chat message says.
    deprecation is fixed at its cause. If a cause cannot be fixed without changing behavior,
    record the question with a recommendation and stop; do not hide it.
 
-(flat has one approved exception to directive 2, in its own source; there is none in this
+(flat has approved exceptions to directive 2, listed in its own `AGENTS.md`; there is none in this
 repository, and only the maintainer can add one.)
 
 ## Working rules
