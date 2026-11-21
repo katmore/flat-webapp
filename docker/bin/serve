@@ -34,6 +34,7 @@ done
 # Dependencies are installed as the current user so the files stay yours.
 # Set WEBAPP_UID and WEBAPP_GID to override (for example when running as root).
 export WEBAPP_PORT=$port WEBAPP_UID=${WEBAPP_UID:-$(id -u)} WEBAPP_GID=${WEBAPP_GID:-$(id -g)}
+if [ "$WEBAPP_UID" = 0 ]; then export WEBAPP_UID=1000 WEBAPP_GID=1000; fi
 files="-f docker/compose.yml"
 if [ -n "${WEBAPP_CA_FILE:-}" ]; then files="$files -f docker/compose.ca.yml"; fi
 if [ -n "$flat_dir" ]; then export WEBAPP_FLAT_DIR=$flat_dir; files="$files -f docker/compose.flat.yml"; fi

@@ -25,15 +25,16 @@ The script stays in the foreground and streams the server log live: every reques
 error (errors are never shown on the page, only here). **Press Ctrl-C to stop the server**; it
 shuts down and removes its container. Use `--detach` to run in the background instead.
 
-It installs the PHP dependencies with Composer (flat's `php-7.3` branch until the
-`v1.73.0` release exists), builds an Apache + PHP 7.3 image, and starts it. Then open:
+It installs the PHP dependencies from `composer.lock` (flat `v1.73.0`), builds an Apache +
+PHP 7.3 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
  * http://localhost:8080/api.php/example (JSON API example)
 
 Options (`docker/bin/serve --help`): `--port N` picks another port, `--flat ../flat` serves flat
 from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, and `--detach` runs it in the background (stop it with `--stop`). The Composer packages are installed into `vendor/` in your
-working copy, as your own user.
+working copy, as your own user. Apache workers use the same UID/GID so private checkout
+directories remain readable without changing their permissions.
 
 PHP settings: the entry points do not set `display_errors` or `error_reporting`; PHP's own
 configuration does. The image uses PHP's `php.ini-development` (`error_reporting` is `E_ALL`), and

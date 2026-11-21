@@ -17,6 +17,7 @@ esac
 # Dependencies are installed as the current user so the files stay yours.
 # Set WEBAPP_UID and WEBAPP_GID to override (for example when running as root).
 export WEBAPP_UID=${WEBAPP_UID:-$(id -u)} WEBAPP_GID=${WEBAPP_GID:-$(id -g)}
+if [ "$WEBAPP_UID" = 0 ]; then export WEBAPP_UID=1000 WEBAPP_GID=1000; fi
 dev="-f docker/compose.yml"; test_files="-f docker/compose.test.yml"
 if [ -n "${WEBAPP_CA_FILE:-}" ]; then
     dev="$dev -f docker/compose.ca.yml"
@@ -24,12 +25,11 @@ if [ -n "${WEBAPP_CA_FILE:-}" ]; then
 fi
 compose() { docker compose $test_files "$@"; }
 
-if [ ! -f vendor/autoload.php ]; then
-    echo '== installing PHP dependencies (Composer)'
-    # ext-mongodb is only needed by flat's optional MongoDB code; the web image has none.
-    docker compose $dev --profile tools run --rm composer install --no-interaction --no-progress \
-        --ignore-platform-req=ext-mongodb
-fi
+# Reconcile existing installs with the tracked lock too; an old vendor tree must
+# not silently select a different framework or dependency version.
+echo '== installing locked PHP dependencies (Composer)'
+docker compose $dev --profile tools run --rm composer install --no-interaction --no-progress \
+    --prefer-install="${COMPOSER_PREFER_INSTALL:-dist}" --ignore-platform-req=ext-mongodb
 
 log=$(mktemp)
 cleanup() {

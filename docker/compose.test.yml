@@ -6,6 +6,9 @@ services:
     build:
       context: .
     image: flat-webapp-web
+    environment:
+      APACHE_RUN_USER: "#${WEBAPP_UID:-1000}"
+      APACHE_RUN_GROUP: "#${WEBAPP_GID:-1000}"
     volumes:
       - ..:/var/www/webapp
     healthcheck:
@@ -17,10 +20,15 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.test
+      args:
+        COMPOSER_PREFER_INSTALL: ${COMPOSER_PREFER_INSTALL:-dist}
     image: flat-webapp-tests
+    user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
     working_dir: /app
     environment:
       FLAT_WEBAPP_URL: http://web
+      NO_PROXY: web,localhost,127.0.0.1,::1
+      no_proxy: web,localhost,127.0.0.1,::1
     volumes:
       - ..:/app:ro
     depends_on:

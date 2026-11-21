@@ -2,7 +2,7 @@
 !/.gitignore
 **/vendor/*
 **/components/*
-composer.lock
+# Lock the application as well as its test tools.
 # the functional tests' own lock is a reproducibility input
 !/tests/docker/composer.lock
 npm-debug.log
