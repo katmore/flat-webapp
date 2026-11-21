@@ -42,6 +42,8 @@ repository, and only the maintainer can add one.)
   `display_errors` off and `log_errors` on in `docker/zz-errors.ini`, and do not set
   `display_errors` or `error_reporting` in code: PHP's own configuration decides, and the image
   uses `php.ini-development` (`E_ALL`).
+- Warnings and deprecations are never suppressed or put off, here or in flat: fix them when found.
+  The image uses PHP's `php.ini-development` (`E_ALL`); keep it that way.
 - Line endings are LF (`.gitattributes`). Nothing may depend on an agent's own workspace,
   private paths or prebuilt images: a fresh checkout plus Docker must be enough.
 - The `composer.json` constraint on `katmore/flat` follows the flat release that matches the PHP
