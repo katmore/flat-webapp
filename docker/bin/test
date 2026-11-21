@@ -11,6 +11,7 @@ case "${1:-}" in
     -h|--help)
         echo 'Usage: docker/bin/test [PHPUnit arguments]'
         echo '  Set WEBAPP_CA_FILE to a CA bundle file if downloads need an extra CA.'
+        echo '  Set WEBAPP_GITHUB_ARCHIVES=1 to cache locked test-tool archives from codeload.github.com.'
         exit 0 ;;
 esac
 

@@ -64,8 +64,9 @@ fatal paths and the error handlers' generic response, HTTP status and logged dia
 The endpoint is enabled only by the test Compose stack, which publishes no host port.
 
 The runner reconciles dependencies with the tracked application lock on every run and checks that
-the installed flat release matches it. Set `COMPOSER_PREFER_INSTALL=source` to use Git downloads
-when archive downloads are unavailable. Docker is the only host requirement; this is development
+the installed flat release matches it. Set `COMPOSER_PREFER_INSTALL=source` for application Git
+downloads. Set `WEBAPP_GITHUB_ARCHIVES=1` to cache the locked test-tool ZIPs from GitHub's official
+codeload endpoint when its API archive endpoint is unavailable. Docker is the only host requirement; this is development
 tooling.
 
 ## Installation without Docker

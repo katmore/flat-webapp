@@ -21,3 +21,11 @@ A scratch parser returning empty input makes six new checks fail while the five 
 unsupported-method body checks still pass. No application or web entry-point code changed.
 
 Validation: 66 tests and 196 assertions pass with PHP 7.3.33 and the strict server-log gate.
+
+## Keep test images small with source-download fallbacks
+
+Remove Git histories before copying test tools into the runtime image. The optional
+WEBAPP_GITHUB_ARCHIVES=1 mode seeds Composer's ZIP cache from official GitHub archives for the
+exact locked commits; it does not alter the lock or package versions. Application and test-tool
+transport preferences are separate. The verified runtime image is about 470 MB; all 66 tests
+and the strict log check pass after rebuilding it.

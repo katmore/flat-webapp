@@ -22,7 +22,8 @@ services:
       context: ..
       dockerfile: docker/Dockerfile.test
       args:
-        COMPOSER_PREFER_INSTALL: ${COMPOSER_PREFER_INSTALL:-dist}
+        COMPOSER_PREFER_INSTALL: ${WEBAPP_TEST_PREFER_INSTALL:-dist}
+        GITHUB_ARCHIVE_CACHE: ${WEBAPP_GITHUB_ARCHIVES:-0}
     image: flat-webapp-tests
     user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
     working_dir: /app
