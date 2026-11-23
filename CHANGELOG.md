@@ -1,5 +1,11 @@
 # PHP 7.3 changes
 
+## Lock flat v1.73.1
+
+The application lock moves from flat v1.73.0 to the published release v1.73.1 (3518235); the
+constraint stays 1.73.*. Only flat changes in the lock. 67 tests and 203 assertions pass with PHP
+7.3.33.
+
 ## Lock application dependencies (finding 8)
 
 Require flat 1.73.* and track the application lock, currently v1.73.0 at 8bee551. The test runner
