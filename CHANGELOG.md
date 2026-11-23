@@ -39,3 +39,10 @@ pinned by digest. Installs from the existing locks are unchanged; the 66 tests a
 
 The test lock moves to PHPUnit 9.6.39 on the PHP 7.3.33 platform (9.6 is the last line for PHP 7.3).
 Two `assertRegExp` calls became `assertMatchesRegularExpression`. Same 66 tests and assertions.
+
+## Fix: the server-log check failed when the host user is not the container user
+
+`docker/bin/test` made its log copy with `mktemp` (mode 0600), which the test container, running as
+user 1000, could not read when the host user was root (typical in CI). The check then printed "Usage"
+and failed a green run. The copy is now readable, and `check-server-log.php` says "Cannot read the log
+file" for an unreadable file and keeps "Usage" for a wrong argument count. A new test covers both messages.

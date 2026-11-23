@@ -32,7 +32,9 @@ echo '== installing locked PHP dependencies (Composer)'
 docker compose $dev --profile tools run --rm composer install --no-interaction --no-progress \
     --prefer-install="${COMPOSER_PREFER_INSTALL:-dist}" --ignore-platform-req=ext-mongodb
 
-log=$(mktemp)
+# mktemp makes the file private (0600), but the test container may run as another user (a root host runs it
+# as 1000): it must be able to read the log.
+log=$(mktemp); chmod 644 "$log"
 cleanup() {
     status=$?
     trap - EXIT INT TERM

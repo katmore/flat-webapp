@@ -55,4 +55,18 @@ class ServerLogTest extends TestCase
             }
         } finally { unlink($file); }
     }
+    public function testCommandNamesTheProblemWhenTheLogCannotBeRead()
+    {
+        $script = escapeshellarg(PHP_BINARY).' '.escapeshellarg(__DIR__.'/../tools/check-server-log.php');
+        foreach ([[$script.' '.escapeshellarg(sys_get_temp_dir().'/webapp-log-missing-'.bin2hex(random_bytes(4))), 'Cannot read the log file'],
+                  [$script, 'Usage: php tests/tools/check-server-log.php LOG_FILE']] as $case) {
+            $process = proc_open($case[0], [0=>['pipe','r'],1=>['pipe','w'],2=>['pipe','w']], $pipes);
+            $this->assertIsResource($process); fclose($pipes[0]);
+            stream_get_contents($pipes[1]); fclose($pipes[1]);
+            $err = stream_get_contents($pipes[2]); fclose($pipes[2]);
+            $this->assertSame(2, proc_close($process));
+            $this->assertStringContainsString($case[1], $err);
+            if ($case[1] === 'Cannot read the log file') $this->assertStringNotContainsString('Usage', $err);
+        }
+    }
 }
