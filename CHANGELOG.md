@@ -46,3 +46,8 @@ Two `assertRegExp` calls became `assertMatchesRegularExpression`. Same 66 tests 
 user 1000, could not read when the host user was root (typical in CI). The check then printed "Usage"
 and failed a green run. The copy is now readable, and `check-server-log.php` says "Cannot read the log
 file" for an unreadable file and keeps "Usage" for a wrong argument count. A new test covers both messages.
+
+## Dependencies: Guzzle 7.17.0 and psr7 2.13.6 in the application lock
+
+The tracked `composer.lock` takes the two patch updates PHP 7.3.33 allows (Guzzle 7.16.5 to 7.17.0, psr7 2.13.5
+to 2.13.6); the pinned flat release is unchanged. The 67 tests and the log check pass.
