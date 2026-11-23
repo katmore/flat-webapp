@@ -34,3 +34,8 @@ and the strict log check pass after rebuilding it.
 
 The Composer image used to install the application and the test dependencies is `composer:2.11`,
 pinned by digest. Installs from the existing locks are unchanged; the 66 tests and the log check pass.
+
+## Tooling: PHPUnit 9.6 (was 8.5)
+
+The test lock moves to PHPUnit 9.6.39 on the PHP 7.3.33 platform (9.6 is the last line for PHP 7.3).
+Two `assertRegExp` calls became `assertMatchesRegularExpression`. Same 66 tests and assertions.
