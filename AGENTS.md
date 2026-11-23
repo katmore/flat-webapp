@@ -46,6 +46,10 @@ repository, and only the maintainer can add one.)
   uses `php.ini-development` (`E_ALL`).
 - Warnings and deprecations are never suppressed or put off, here or in flat: fix them when found.
   The image uses PHP's `php.ini-development` (`E_ALL`); keep it that way.
+- Keep every tool, service and dependency of the test setup at the newest release this branch's PHP
+  supports, aggressively and one at a time; never hold them back for the known consumer. The
+  application's behavior stays compatible through workarounds, not by pinning old tools. The full rule is
+  in flat's `AGENTS.md`, "Keep everything current".
 - Line endings are LF (`.gitattributes`). Nothing may depend on an agent's own workspace,
   private paths or prebuilt images: a fresh checkout plus Docker must be enough.
 - The `composer.json` constraint on `katmore/flat` follows the flat release that matches the PHP
