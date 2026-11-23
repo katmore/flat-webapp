@@ -29,3 +29,8 @@ WEBAPP_GITHUB_ARCHIVES=1 mode seeds Composer's ZIP cache from official GitHub ar
 exact locked commits; it does not alter the lock or package versions. Application and test-tool
 transport preferences are separate. The verified runtime image is about 470 MB; all 66 tests
 and the strict log check pass after rebuilding it.
+
+## Tooling: Composer 2.11 (was 2.2)
+
+The Composer image used to install the application and the test dependencies is `composer:2.11`,
+pinned by digest. Installs from the existing locks are unchanged; the 66 tests and the log check pass.

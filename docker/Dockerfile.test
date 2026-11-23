@@ -1,6 +1,6 @@
 # Test runner for the functional tests (tests/). For local development only. PHPUnit runs in
 # PHP 7.3 and sends real HTTP requests to the application's web container (docker/compose.test.yml).
-FROM composer:2.2@sha256:4c156e03ca848b69528dde30996d8922b47a9946e76d5cc563cf7f0898e8aa86 AS dependencies
+FROM composer:2.11@sha256:50ea4d33fdcde1adb0f045547295faa1548b33872e5f789dae5b02ce2fb5de93 AS dependencies
 ARG COMPOSER_PREFER_INSTALL=dist
 ARG GITHUB_ARCHIVE_CACHE=0
 WORKDIR /opt/flat-webapp-tests
