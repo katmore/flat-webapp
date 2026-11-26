@@ -1,5 +1,11 @@
 # PHP 7.3 changes
 
+## Tooling: Composer 2.11.3
+
+The `composer:2.11` image (used by `docker/bin/serve` and the test image build) is pinned to the build of
+2026-11-25, Composer 2.11.3 (was 2.11.2). The `php:7.3-apache` and `php:7.3-cli` pins are already the final
+7.3 builds. 67 tests and 203 assertions pass.
+
 ## Lock symfony/yaml 5.4.57
 
 The application lock moves symfony/yaml from v5.4.56 to v5.4.57, a patch release of 2026-11-25 and the only

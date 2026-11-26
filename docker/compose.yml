@@ -14,7 +14,7 @@ services:
       - ..:/var/www/webapp
   composer:
     # PHP dependencies, including flat itself, into ./vendor
-    image: composer:2.11@sha256:50ea4d33fdcde1adb0f045547295faa1548b33872e5f789dae5b02ce2fb5de93
+    image: composer:2.11@sha256:0049ce90b432795bf413a738b073963ada1a689e1a8708104684baafe94586ec
     profiles: ["tools"]
     user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
     working_dir: /app
