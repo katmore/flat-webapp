@@ -1,5 +1,10 @@
 # PHP 7.3 changes
 
+## Lock symfony/yaml 5.4.57
+
+The application lock moves symfony/yaml from v5.4.56 to v5.4.57, a patch release of 2026-11-25 and the only
+package with a newer release that PHP 7.3.33 allows. Only that package changes. 67 tests and 203 assertions pass.
+
 ## Lock flat v1.73.1
 
 The application lock moves from flat v1.73.0 to the published release v1.73.1 (3518235); the
