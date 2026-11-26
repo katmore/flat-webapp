@@ -26,7 +26,7 @@ error (errors are never shown on the page, only here). **Press Ctrl-C to stop th
 shuts down and removes its container. Use `--detach` to run in the background instead.
 
 It installs the PHP dependencies from `composer.lock` (flat `v1.73.2`), builds an Apache +
-PHP 7.3 image, and starts it. Then open:
+PHP 7.4 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
  * http://localhost:8080/api.php/example (JSON API example)

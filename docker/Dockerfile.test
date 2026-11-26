@@ -1,5 +1,5 @@
 # Test runner for the functional tests (tests/). For local development only. PHPUnit runs in
-# PHP 7.3 and sends real HTTP requests to the application's web container (docker/compose.test.yml).
+# PHP 7.4 and sends real HTTP requests to the application's web container (docker/compose.test.yml).
 FROM composer:2.11@sha256:0049ce90b432795bf413a738b073963ada1a689e1a8708104684baafe94586ec AS dependencies
 ARG COMPOSER_PREFER_INSTALL=dist
 ARG GITHUB_ARCHIVE_CACHE=0
@@ -17,11 +17,11 @@ RUN --mount=type=secret,id=proxy_ca \
     composer install --no-interaction --no-progress --prefer-install="$COMPOSER_PREFER_INSTALL" --no-plugins --no-scripts && \
     find vendor -type d -name .git -prune -exec rm -rf {} +
 
-FROM php:7.3-cli@sha256:bd6f2dc7a4e4537e927355c94a74c3022911aa504278f5f0fd94016c90dfaecc
+FROM php:7.4-cli@sha256:620a6b9f4d4feef2210026172570465e9d0c1de79766418d3affd09190a7fda5
 # Report everything, always: PHP's own development configuration (error_reporting = E_ALL).
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 COPY --from=dependencies /opt/flat-webapp-tests /opt/flat-webapp-tests
 RUN chmod -R a+rX /opt/flat-webapp-tests
-RUN php -r 'if (PHP_VERSION !== "7.3.33") { throw new RuntimeException("Unexpected PHP version"); } if (error_reporting() !== E_ALL) { throw new RuntimeException("error_reporting is not E_ALL"); } if (!extension_loaded("curl")) { throw new RuntimeException("Missing extension: curl"); } require "/opt/flat-webapp-tests/vendor/autoload.php"; echo "Verified PHP ".PHP_VERSION." and PHPUnit\n";'
+RUN php -r 'if (PHP_VERSION !== "7.4.33") { throw new RuntimeException("Unexpected PHP version"); } if (error_reporting() !== E_ALL) { throw new RuntimeException("error_reporting is not E_ALL"); } if (!extension_loaded("curl")) { throw new RuntimeException("Missing extension: curl"); } require "/opt/flat-webapp-tests/vendor/autoload.php"; echo "Verified PHP ".PHP_VERSION." and PHPUnit\n";'
 WORKDIR /app
 ENTRYPOINT ["php", "/opt/flat-webapp-tests/vendor/bin/phpunit"]

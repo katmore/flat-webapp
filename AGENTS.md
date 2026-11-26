@@ -53,7 +53,7 @@ repository, and only the maintainer can add one.)
 - Line endings are LF (`.gitattributes`). Nothing may depend on an agent's own workspace,
   private paths or prebuilt images: a fresh checkout plus Docker must be enough.
 - The `composer.json` constraint on `katmore/flat` follows the flat release that matches the PHP
-  version of the current phase branch (now `php-7.3`). Use a published release, not a flat
+  version of the current phase branch (now `php-7.4`). Use a published release, not a flat
   branch, once one exists.
 - A README says what is true now; history (what changed, why, who decided) belongs in a
   changelog. Keep documents short and link instead of repeating.
@@ -65,7 +65,7 @@ repository, and only the maintainer can add one.)
 
 ## Branches
 
-- Commit and push to the current phase branch (`php-7.3`; `php-7.2` is closed and kept as the
-  record of its phase). Never touch `master` (prime directive 1). There is no `modernize-26`
+- Commit and push to the current phase branch (`php-7.4`; `php-7.2` and `php-7.3` are closed and kept as the
+  record of their phases). Never touch `master` (prime directive 1). There is no `modernize-26`
   branch any more (retired 2026-11-20). Follow the maintainer's explicit branch and push instructions.
 - Commit often, in coherent groups, each with its documentation.

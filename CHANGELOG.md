@@ -1,3 +1,14 @@
+# PHP 7.4 changes
+
+## PHP 7.4.33 test and development images
+
+The web image is `php:7.4-apache` and the test image `php:7.4-cli`, both pinned by digest to the final 7.4.33
+builds (`sha256:c9d7e608...` and `sha256:620a6b9f...`). The Composer platform pin is 7.4.33 in `composer.json` and
+`tests/docker/composer.json`; both locks are refreshed (content hash and platform only, no package moved).
+`README.md`, `AGENTS.md` and the script comments name PHP 7.4. The application code is unchanged. 67 tests and
+203 assertions pass, and the server log has no PHP message. The application still locks flat v1.73.2; it moves
+to the published 7.4 release once there is one.
+
 # PHP 7.3 changes
 
 ## Lock flat v1.73.2
