@@ -1,5 +1,11 @@
 # PHP 7.3 changes
 
+## Lock flat v1.73.2
+
+The application lock moves from flat v1.73.1 to the published release v1.73.2 (673df9f); the constraint stays
+1.73.*. Only flat changes in the lock. flat v1.73.2 brings updated Markdown and JavaScript minifier libraries and a
+Markdown converter that escapes raw HTML by default. 67 tests and 203 assertions pass with PHP 7.3.33.
+
 ## Tooling: Composer 2.11.3
 
 The `composer:2.11` image (used by `docker/bin/serve` and the test image build) is pinned to the build of

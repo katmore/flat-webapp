@@ -1163,11 +1163,11 @@
         },
         {
             "name": "katmore/flat",
-            "version": "v1.73.1",
+            "version": "v1.73.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/katmore/flat",
-                "reference": "3518235fd19395c6e5a06f73396b827acf4de4f9"
+                "reference": "673df9f58b2552069927bb73a1b95a828424cd2f"
             },
             "require": {
                 "alcaeus/mongo-php-adapter": "^1.0",
@@ -1201,7 +1201,7 @@
             ],
             "description": "experimental framework for php",
             "homepage": "https://github.com/katmore/flat",
-            "time": "2026-11-23T20:28:43+00:00"
+            "time": "2026-11-26T21:20:36+00:00"
         },
         {
             "name": "mongodb/mongodb",
