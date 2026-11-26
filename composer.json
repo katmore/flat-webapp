@@ -14,7 +14,7 @@
     ],    
     "require": {
         "php" : ">=7.1.1",
-        "katmore/flat": "dev-php-7.3"
+        "katmore/flat": "1.73.*"
     },
     "repositories": [
         {

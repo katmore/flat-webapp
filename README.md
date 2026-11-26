@@ -25,15 +25,16 @@ The script stays in the foreground and streams the server log live: every reques
 error (errors are never shown on the page, only here). **Press Ctrl-C to stop the server**; it
 shuts down and removes its container. Use `--detach` to run in the background instead.
 
-It installs the PHP dependencies with Composer (flat's `php-7.3` branch until the
-`v1.73.0` release exists), builds an Apache + PHP 7.3 image, and starts it. Then open:
+It installs the PHP dependencies from `composer.lock` (flat `v1.73.2`), builds an Apache +
+PHP 7.3 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
  * http://localhost:8080/api.php/example (JSON API example)
 
 Options (`docker/bin/serve --help`): `--port N` picks another port, `--flat ../flat` serves flat
 from a local checkout instead of the Composer copy, `--install` reinstalls dependencies, and `--detach` runs it in the background (stop it with `--stop`). The Composer packages are installed into `vendor/` in your
-working copy, as your own user.
+working copy, as your own user. Apache workers use the same UID/GID so private checkout
+directories remain readable without changing their permissions.
 
 PHP settings: the entry points do not set `display_errors` or `error_reporting`; PHP's own
 configuration does. The image uses PHP's `php.ini-development` (`error_reporting` is `E_ALL`), and
@@ -57,8 +58,16 @@ docker/bin/test --filter ApiTest     # arguments go to PHPUnit
 
 The tests in `tests/` send real HTTP requests to the application running behind Apache in Docker
 (`docker/compose.test.yml`) and check the status, headers and body. The run also fails if the
-server log shows any PHP warning, notice, deprecation or fatal error. Docker is the only thing
-needed on the host. Like the server, it is for local development only.
+server log shows any PHP warning, notice, deprecation, fatal error or application JSON error
+record. A test-only HTTP endpoint exposes parsed request bodies. Isolated PHP tests assert native
+fatal paths and the error handlers' generic response, HTTP status and logged diagnostics.
+The endpoint is enabled only by the test Compose stack, which publishes no host port.
+
+The runner reconciles dependencies with the tracked application lock on every run and checks that
+the installed flat release matches it. Set `COMPOSER_PREFER_INSTALL=source` for application Git
+downloads. Set `WEBAPP_GITHUB_ARCHIVES=1` to cache the locked test-tool ZIPs from GitHub's official
+codeload endpoint when its API archive endpoint is unavailable. Docker is the only host requirement; this is development
+tooling.
 
 ## Installation without Docker
  Composer 'create-project'...

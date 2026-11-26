@@ -11,12 +11,14 @@ case "${1:-}" in
     -h|--help)
         echo 'Usage: docker/bin/test [PHPUnit arguments]'
         echo '  Set WEBAPP_CA_FILE to a CA bundle file if downloads need an extra CA.'
+        echo '  Set WEBAPP_GITHUB_ARCHIVES=1 to cache locked test-tool archives from codeload.github.com.'
         exit 0 ;;
 esac
 
 # Dependencies are installed as the current user so the files stay yours.
 # Set WEBAPP_UID and WEBAPP_GID to override (for example when running as root).
 export WEBAPP_UID=${WEBAPP_UID:-$(id -u)} WEBAPP_GID=${WEBAPP_GID:-$(id -g)}
+if [ "$WEBAPP_UID" = 0 ]; then export WEBAPP_UID=1000 WEBAPP_GID=1000; fi
 dev="-f docker/compose.yml"; test_files="-f docker/compose.test.yml"
 if [ -n "${WEBAPP_CA_FILE:-}" ]; then
     dev="$dev -f docker/compose.ca.yml"
@@ -24,14 +26,15 @@ if [ -n "${WEBAPP_CA_FILE:-}" ]; then
 fi
 compose() { docker compose $test_files "$@"; }
 
-if [ ! -f vendor/autoload.php ]; then
-    echo '== installing PHP dependencies (Composer)'
-    # ext-mongodb is only needed by flat's optional MongoDB code; the web image has none.
-    docker compose $dev --profile tools run --rm composer install --no-interaction --no-progress \
-        --ignore-platform-req=ext-mongodb
-fi
+# Reconcile existing installs with the tracked lock too; an old vendor tree must
+# not silently select a different framework or dependency version.
+echo '== installing locked PHP dependencies (Composer)'
+docker compose $dev --profile tools run --rm composer install --no-interaction --no-progress \
+    --prefer-install="${COMPOSER_PREFER_INSTALL:-dist}" --ignore-platform-req=ext-mongodb
 
-log=$(mktemp)
+# mktemp makes the file private (0600), but the test container may run as another user (a root host runs it
+# as 1000): it must be able to read the log.
+log=$(mktemp); chmod 644 "$log"
 cleanup() {
     status=$?
     trap - EXIT INT TERM
@@ -52,8 +55,8 @@ set -e
 
 # Every PHP message in the server log is a failure, even when all tests passed.
 compose logs --no-color web > "$log" 2>&1
-if grep -E 'PHP (Warning|Notice|Deprecated|Strict Standards|Parse error|Fatal error)' "$log" >&2; then
-    echo 'The server log contains the PHP messages above: fix their cause.' >&2
+if ! compose run --rm -T --no-deps -v "$log:/server.log:ro" --entrypoint php tests tests/tools/check-server-log.php /server.log; then
+    echo 'The server log check failed: fix the reported errors.' >&2
     status=1
 fi
 exit "$status"

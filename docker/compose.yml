@@ -5,13 +5,16 @@ services:
     build:
       context: .
     image: flat-webapp-web
+    environment:
+      APACHE_RUN_USER: "#${WEBAPP_UID:-1000}"
+      APACHE_RUN_GROUP: "#${WEBAPP_GID:-1000}"
     ports:
       - "${WEBAPP_PORT:-8080}:80"
     volumes:
       - ..:/var/www/webapp
   composer:
     # PHP dependencies, including flat itself, into ./vendor
-    image: composer:2.2@sha256:4c156e03ca848b69528dde30996d8922b47a9946e76d5cc563cf7f0898e8aa86
+    image: composer:2.11@sha256:0049ce90b432795bf413a738b073963ada1a689e1a8708104684baafe94586ec
     profiles: ["tools"]
     user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
     working_dir: /app

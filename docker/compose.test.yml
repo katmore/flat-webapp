@@ -6,8 +6,12 @@ services:
     build:
       context: .
     image: flat-webapp-web
+    environment:
+      APACHE_RUN_USER: "#${WEBAPP_UID:-1000}"
+      APACHE_RUN_GROUP: "#${WEBAPP_GID:-1000}"
     volumes:
       - ..:/var/www/webapp
+      - ./apache.test.conf:/etc/apache2/conf-enabled/flat-tests.conf:ro
     healthcheck:
       test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://localhost/view.php/home"]
       interval: 2s
@@ -17,10 +21,16 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.test
+      args:
+        COMPOSER_PREFER_INSTALL: ${WEBAPP_TEST_PREFER_INSTALL:-dist}
+        GITHUB_ARCHIVE_CACHE: ${WEBAPP_GITHUB_ARCHIVES:-0}
     image: flat-webapp-tests
+    user: "${WEBAPP_UID:-1000}:${WEBAPP_GID:-1000}"
     working_dir: /app
     environment:
       FLAT_WEBAPP_URL: http://web
+      NO_PROXY: web,localhost,127.0.0.1,::1
+      no_proxy: web,localhost,127.0.0.1,::1
     volumes:
       - ..:/app:ro
     depends_on:

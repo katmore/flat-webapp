@@ -1,13 +1,21 @@
 # Test runner for the functional tests (tests/). For local development only. PHPUnit runs in
 # PHP 7.3 and sends real HTTP requests to the application's web container (docker/compose.test.yml).
-FROM composer:2.2@sha256:4c156e03ca848b69528dde30996d8922b47a9946e76d5cc563cf7f0898e8aa86 AS dependencies
+FROM composer:2.11@sha256:0049ce90b432795bf413a738b073963ada1a689e1a8708104684baafe94586ec AS dependencies
+ARG COMPOSER_PREFER_INSTALL=dist
+ARG GITHUB_ARCHIVE_CACHE=0
 WORKDIR /opt/flat-webapp-tests
 COPY tests/docker/composer.json tests/docker/composer.lock ./
+COPY tests/docker/github-archives.php /usr/local/bin/github-archives.php
 RUN --mount=type=secret,id=proxy_ca \
-    task_ca=/etc/ssl/certs/ca-certificates.crt; \
+    set -eu; task_ca=/etc/ssl/certs/ca-certificates.crt; \
     if [ -f /run/secrets/proxy_ca ]; then task_ca=/run/secrets/proxy_ca; fi; \
     export COMPOSER_CAFILE="$task_ca" GIT_SSL_CAINFO="$task_ca"; \
-    composer install --no-interaction --no-progress --prefer-dist --no-plugins --no-scripts
+    if [ "$GITHUB_ARCHIVE_CACHE" = 1 ]; then \
+        task_cache_dir=$(composer config cache-files-dir --absolute); \
+        php /usr/local/bin/github-archives.php composer.lock "$task_cache_dir"; \
+    fi; \
+    composer install --no-interaction --no-progress --prefer-install="$COMPOSER_PREFER_INSTALL" --no-plugins --no-scripts && \
+    find vendor -type d -name .git -prune -exec rm -rf {} +
 
 FROM php:7.3-cli@sha256:bd6f2dc7a4e4537e927355c94a74c3022911aa504278f5f0fd94016c90dfaecc
 # Report everything, always: PHP's own development configuration (error_reporting = E_ALL).
