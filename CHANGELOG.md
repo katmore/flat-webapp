@@ -1,5 +1,9 @@
 # PHP 7.4 changes
 
+## Lock nikic/php-parser 5.9.0 in the test tools
+
+The test-tool lock (`tests/docker/composer.lock`) moves nikic/php-parser (a PHPUnit dependency) from 4.19.5 to 5.9.0, the newest release PHP 7.4.33 allows. Only that package changes. 67 tests and 203 assertions pass, and the server log has no PHP message. With this, the application lock and the test-tool lock are at the newest releases PHP 7.4 allows; the four advisories on aws/aws-sdk-php and mongodb/mongodb need PHP 8.1 (see flat's php-7.4 notes/DEPENDENCY-ALERTS.md).
+
 ## Lock mongodb/mongodb 1.20.0
 
 The application lock moves mongodb/mongodb from 1.16.1 to 1.20.0, the newest release PHP 7.4.33 allows. It drops two packages it no longer needs (jean85/pretty-package-versions, symfony/polyfill-php73) and adds psr/log 1.1.4. 67 tests and 203 assertions pass, and the server log has no PHP message.
