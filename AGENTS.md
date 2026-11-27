@@ -50,6 +50,10 @@ repository, and only the maintainer can add one.)
   supports, aggressively and one at a time; never hold them back for the known consumer. The
   application's behavior stays compatible through workarounds, not by pinning old tools. The full rule is
   in flat's `AGENTS.md`, "Keep everything current".
+- **Never use `class_alias`**, in the application, the tests or the tools: not as a shim, a forwarding file or a "historical
+  name". Rename the class and change every reference. A class is declared with the namespace and name its file path gives, and
+  flat's class names are lowercase words joined by underscores (`bad_param`), never camel case. The full rule is in flat's
+  `AGENTS.md`, "Class names: never `class_alias`".
 - Line endings are LF (`.gitattributes`). Nothing may depend on an agent's own workspace,
   private paths or prebuilt images: a fresh checkout plus Docker must be enough.
 - The `composer.json` constraint on `katmore/flat` follows the flat release that matches the PHP
