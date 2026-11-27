@@ -1,5 +1,9 @@
 # PHP 7.4 changes
 
+## Lock jms/serializer 3.32.9
+
+The application lock moves jms/serializer from 3.29.1 to 3.32.9, the newest release PHP 7.4.33 allows. Only that package changes. 67 tests and 203 assertions pass, and the server log has no PHP message.
+
 ## Lock doctrine/deprecations 1.2.0
 
 The application lock moves doctrine/deprecations from 1.1.6 to 1.2.0, the newest release PHP 7.4.33 allows. Only that package changes. 67 tests and 203 assertions pass, and the server log has no PHP message.
