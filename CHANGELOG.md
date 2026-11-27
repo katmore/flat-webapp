@@ -1,5 +1,9 @@
 # PHP 7.4 changes
 
+## Lock mongodb/mongodb 1.20.0
+
+The application lock moves mongodb/mongodb from 1.16.1 to 1.20.0, the newest release PHP 7.4.33 allows. It drops two packages it no longer needs (jean85/pretty-package-versions, symfony/polyfill-php73) and adds psr/log 1.1.4. 67 tests and 203 assertions pass, and the server log has no PHP message.
+
 ## Lock phpstan/phpdoc-parser 2.4.2
 
 The application lock moves phpstan/phpdoc-parser (used by jms/serializer) from 1.33.0 to 2.4.2, the newest release PHP 7.4.33 allows. Only that package changes. 67 tests and 203 assertions pass, and the server log has no PHP message.
