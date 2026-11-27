@@ -1,5 +1,12 @@
 # PHP 7.4 changes
 
+## Lock flat v1.74.0
+
+The application lock moves from flat v1.73.2 to the published release v1.74.0 (2812136); the constraint is now
+1.74.* and the `php` requirement `>=7.4.0`, as flat's. Only flat changes in the lock (the content hash aside).
+`DependencyLockTest` expects a 1.74.x framework. 67 tests and 203 assertions pass with PHP 7.4.33, and the server
+log has no PHP message.
+
 ## Tooling: the Composer image rebuild of 2026-11-27
 
 The `composer:2.11` pin moves to the rebuild of 2026-11-27 (`sha256:5b2137f1...`): still Composer 2.11.3, on updated

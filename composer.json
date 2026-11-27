@@ -13,8 +13,8 @@
         }
     ],    
     "require": {
-        "php" : ">=7.1.1",
-        "katmore/flat": "1.73.*"
+        "php" : ">=7.4.0",
+        "katmore/flat": "1.74.*"
     },
     "repositories": [
         {

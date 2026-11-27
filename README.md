@@ -25,7 +25,7 @@ The script stays in the foreground and streams the server log live: every reques
 error (errors are never shown on the page, only here). **Press Ctrl-C to stop the server**; it
 shuts down and removes its container. Use `--detach` to run in the background instead.
 
-It installs the PHP dependencies from `composer.lock` (flat `v1.73.2`), builds an Apache +
+It installs the PHP dependencies from `composer.lock` (flat `v1.74.0`), builds an Apache +
 PHP 7.4 image, and starts it. Then open:
 
  * http://localhost:8080/view.php/home (HTML view)
