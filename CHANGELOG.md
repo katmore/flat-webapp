@@ -1,5 +1,11 @@
 # PHP 7.4 changes
 
+## Tooling: the Composer image rebuild of 2026-11-27
+
+The `composer:2.11` pin moves to the rebuild of 2026-11-27 (`sha256:5b2137f1...`): still Composer 2.11.3, on updated
+base layers. It is used by `docker/compose.yml` (`docker/bin/serve`) and the test image build. The application code
+and locks are unchanged. 67 tests and 203 assertions pass.
+
 ## PHP 7.4.33 test and development images
 
 The web image is `php:7.4-apache` and the test image `php:7.4-cli`, both pinned by digest to the final 7.4.33
